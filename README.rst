@@ -139,116 +139,25 @@ save.
 Sensor Data
 -------------
 
-sensor range packet 10 hz
--------------------------
-ir bumper [0-127] 45
-ir bumper [0-4095] 46-51
-encoder [-322768-32767] 43,44
+Here are some of the useful sensor packets.
 
-power
------------------------------
-current [-322768-32767] 23
-voltage [0-65535] 22
-motor current [-322768-32767] 54,55
-battery charge [0-65535] 25
-battery capacity [0-65535] 26 (doesn't change?)
+================ =============== =================
+Sensor           Range           Packet Numbers
+================ =============== =================
+ir bumper        [0-127]         45
+ir bumper        [0-4095]        46-51
+encoder          [-322768-32767] 43,44
+current          [-322768-32767] 23
+voltage          [0-65535]       22
+motor current    [-322768-32767] 54,55
+battery charge   [0-65535]       25
+battery capacity [0-65535]       26 (doesn't change?)
+cliff            [0-1]           9-12
+cliff signal     [0-4095]        28-31
+overcurrents     [0-29]          14
+bump wheeldrops  [015]           7
+================ =============== =================
 
-Emergency
--------------------------------
-cliff  [0-1] 9-12
-cliff signal [0-4095] 28-31
-overcurrents [0-29] 14
-bump wheeldrops [015] 7
-
-
-mode
----------------------------------
-oi mode [0-3] 35
-
-The available sensor data is:
-
-``` python
-"sensor data": {
-    "wheel overcurrents": {
-        "right wheel": false,
-        "left wheel": false,
-        "main brush": false,
-        "side brush": false
-    },
-    "infared char omni": 0,
-    "voltage": 0,
-    "requested velocity": 0,
-    "battery charge": 0,
-    "light bump center right signal": 0,
-    "song playing": false,
-    "left motor current": 0,
-    "dirt detect": 0,
-    "buttons": {
-        "dock": false,
-        "clean": false,
-        "hour": false,
-        "clock": false,
-        "schedule": false,
-        "spot": false,
-        "day": false,
-        "minute": false
-    },
-    "requested left velocity": 0,
-    "wheel drop and bumps": {
-        "bump right": false,
-        "drop left": false,
-        "drop right": false,
-        "bump left": false
-    },
-    "number of stream packets": 0,
-    "song number": 0,
-    "oi mode": 0,
-    "stasis": false,
-    "right encoder counts": 0,
-    "cliff front right signal": 0,
-    "main brush motor current": 0,
-    "cliff left": false,
-    "virtual wall": false,
-    "light bump front right signal": 0,
-    "distance": 0,
-    "light bump right signal": 0,
-    "light bump front left signal": 0,
-    "cliff right": false,
-    "left encoder counts": 0,
-    "right motor current": 0,
-    "infared char left": 0,
-    "cliff front right": false,
-    "cliff right signal": 0,
-    "light bump left signal": 0,
-    "cliff front left signal": 0,
-    "charging state": 0,
-    "side brush motor current": 0,
-    "requested radius": 0,
-    "current": 0,
-    "light bumper": {
-        "right": false,
-        "center right": false,
-        "front left": false,
-        "center left": false,
-        "front right": false,
-        "left": false
-    },
-    "requested right velocity": 0,
-    "angle": 0,
-    "cliff front left": false,
-    "temperature": 0,
-    "wall seen": false,
-    "battery capacity": 0,
-    "cliff left signal": 0,
-    "light bump center left signal": 0,
-    "charging sources available": {
-        "home base": false,
-        "internal charger": false
-    },
-    "wall signal": 0,
-    "infared char right": 0
-}
-```
 
 Encoders
 ~~~~~~~~~~~~
@@ -303,10 +212,13 @@ Change Log
 The MIT License
 ==================
 
-**Copyright (c) 2007 Damon Kohler
-Copyright (c) 2015 Jonathan Le Roux (Modifications for Create 2)
-Copyright (c) 2015 Brandon Pomeroy
-Copyright (c) 2017 Kevin Walchko**
+**Copyright (c) 2007 Damon Kohler**
+
+**Copyright (c) 2015 Jonathan Le Roux (Modifications for Create 2)**
+
+**Copyright (c) 2015 Brandon Pomeroy**
+
+**Copyright (c) 2017 Kevin Walchko**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
