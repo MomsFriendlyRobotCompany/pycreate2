@@ -29,7 +29,7 @@ Use
 -------------
 
 Create2API is meant to be interacted with through a single class: "Create2".
-Interacting with your bot is a breeze::
+Interacting with your bot is a breeze:
 
 .. code-block:: python
 
