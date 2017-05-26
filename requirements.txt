@@ -1,0 +1,4 @@
+pyserial
+simplejson
+build_utils
+fake_rpi
