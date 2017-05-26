@@ -24,7 +24,7 @@
 # THE SOFTWARE.
 
 import struct
-from openInterface import sensor_group_packet_lengths
+# from OI import sensor_packet_lengths
 
 
 class SensorPacketDecoder(object):
@@ -37,7 +37,8 @@ class SensorPacketDecoder(object):
 	"""
 
 	def __init__(self):
-		self.lengths = sensor_group_packet_lengths
+		# self.lengths = sensor_packet_lengths
+		pass
 
 	# def decode_packet(self, packet_id, byte_data, sensor_data):
 	def decode_packet(self, id, byte_data, sensor_data):

@@ -23,34 +23,66 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from __future__ import print_function
-import os
-import simplejson as json
-
-
-class Config(object):
-	"""
-	This class handles loading and saving config files that store the
-	Opcodes and other useful dicts
-	"""
-
-	def __init__(self):
-		self.fname = 'config.json'
-		self.data = None
-
-	def load(self):
-		""" Loads a Create2 config file, that holds various dicts of opcodes.
-
-		"""
-		if os.path.isfile(self.fname):
-			# file exists, load it
-			with open(self.fname) as fileData:
-				try:
-					self.data = json.load(fileData)
-					print('Loaded config and opcodes')
-				except ValueError, e:
-					print('Could not load config')
-		else:
-			# couldn't find file
-			print("No config file found")
-			raise ValueError('Could not find config')
+PACKET_0 = 26
+PACKET_1 = 10
+PACKET_2 = 6
+PACKET_3 = 10
+PACKET_4 = 14
+PACKET_5 = 12
+PACKET_6 = 52
+PACKET_7 = 1
+PACKET_8 = 1
+PACKET_9 = 1
+PACKET_10 = 1
+PACKET_11 = 1
+PACKET_12 = 1
+PACKET_13 = 1
+PACKET_14 = 1
+PACKET_15 = 1
+PACKET_16 = 1
+PACKET_17 = 1
+PACKET_18 = 1
+PACKET_19 = 2
+PACKET_20 = 2
+PACKET_21 = 1
+PACKET_22 = 2
+PACKET_23 = 2
+PACKET_24 = 1
+PACKET_25 = 2
+PACKET_26 = 2
+PACKET_27 = 2
+PACKET_28 = 2
+PACKET_29 = 2
+PACKET_30 = 2
+PACKET_31 = 2
+PACKET_32 = 1
+PACKET_33 = 1
+PACKET_34 = 1
+PACKET_35 = 1
+PACKET_36 = 1
+PACKET_37 = 1
+PACKET_38 = 1
+PACKET_39 = 2
+PACKET_40 = 2
+PACKET_41 = 2
+PACKET_42 = 2
+PACKET_43 = 2
+PACKET_44 = 2
+PACKET_45 = 1
+PACKET_46 = 2
+PACKET_47 = 2
+PACKET_48 = 2
+PACKET_49 = 2
+PACKET_50 = 2
+PACKET_51 = 2
+PACKET_52 = 1
+PACKET_53 = 1
+PACKET_54 = 2
+PACKET_55 = 2
+PACKET_56 = 2
+PACKET_57 = 2
+PACKET_58 = 1
+PACKET_100 = 80
+PACKET_101 = 28
+PACKET_102 = 12
+PACKET_103 = 9

@@ -1,9 +1,9 @@
 import serial
 import struct
-import time
-from openInterface import sensor_group_packet_lengths
-from packet import SensorPacketDecoder
-from openInterface import opcodes
+# import time
+# from OI import sensor_packet_lengths
+from .packet import SensorPacketDecoder
+# from OI import opcodes
 
 
 class SerialCommandInterface(object):

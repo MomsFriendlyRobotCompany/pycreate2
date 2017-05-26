@@ -27,13 +27,12 @@ from __future__ import print_function
 from __future__ import division
 import struct
 import time
-from config import Config
-from packet import SensorPacketDecoder
-from createSerial import SerialCommandInterface
-from openInterface import opcodes
-from openInterface import ascii_table
-from openInterface import sensor_group_packet_lengths
-from OI import opcodes as Opcodes
+# from config import Config
+from .packet import SensorPacketDecoder
+from .createSerial import SerialCommandInterface
+from .OI import ascii_table
+from .OI import sensor_packet_lengths
+from .OI import opcodes
 # from openInterface import oi_modes
 # from openInterface import baudrates
 # from datetime import datetime
@@ -60,12 +59,12 @@ class Create2(object):
 	def __init__(self, port='/dev/tty.usbserial-DA01NX3Z', baud=115200):
 		self.SCI = SerialCommandInterface()
 		self.SCI.open(port, baud)
-		self.config = Config()
-		self.config.load()
+		# self.config = Config()
+		# self.config.load()
 		self.decoder = SensorPacketDecoder()
 
 		# FIXME: replace with Null and then read first thing
-		self.sensor_state = dict(self.config.data['sensor data'])  # Load a raw sensor dict. None of these values are correct.
+		# self.sensor_state = dict(self.config.data['sensor data'])  # Load a raw sensor dict. None of these values are correct.
 		# self.sensor_state = self.get_packet(100)
 		# self.sensor_state = None
 		# time.sleep(1)
@@ -97,7 +96,7 @@ class Create2(object):
 
 	def getMode(self):
 		# packet_id = '35'
-		# packet_size = sensor_group_packet_lengths[packet_id]
+		# packet_size = sensor_packet_lengths[packet_id]
 		# print('sending:', opcodes['oi_mode'])
 		# self.SCI.write(opcodes['oi_mode'])
 		# packet_byte_data = self.SCI.read(packet_size)
@@ -111,7 +110,7 @@ class Create2(object):
 		# print(packet_byte_data)
 		# print(ret)
 		# print()
-		self.SCI.write((Opcodes.MODE))
+		self.SCI.write((opcodes.MODE))
 		time.sleep(0.005)
 		ans = self.SCI.read(1)
 		if len(ans) == 1:
@@ -297,14 +296,14 @@ class Create2(object):
 		if not isinstance(notes, tuple):
 			notes = tuple(notes)
 
-		msg = (Opcodes.SONG, song_num, size,) + notes
+		msg = (opcodes.SONG, song_num, size,) + notes
 		self.SCI.write(msg)
 
 	def playSong(self, song_num):
 		if 0 > song_num > 4:
 			raise Exception('Song number must be between 0 and 4')
 
-		msg = (Opcodes.PLAY, song_num,)
+		msg = (opcodes.PLAY, song_num,)
 		self.SCI.write(msg)
 
 	"""------------------------ Sensors ---------------------------- """
@@ -317,11 +316,11 @@ class Create2(object):
 		# raise NotImplementedError()
 		if not isinstance(pkts, tuple):
 			pkts = tuple(pkts,)
-		cmd = (149, len(pkts)) + pkts
+		cmd = (opcodes.QUERY_LIST, len(pkts)) + pkts
 
 		# packet_size = 0
 		# for p in pkts:
-		# 	packet_size += sensor_group_packet_lengths[str(p)]
+		# 	packet_size += sensor_packet_lengths[str(p)]
 
 		self.SCI.write(cmd)
 		time.sleep(0.015)  # wait 15 msec
@@ -338,13 +337,13 @@ class Create2(object):
 		Returns: False if there was an error, True if the packet successfully came through.
 		"""
 		strid = str(packet_id)
-		if strid in sensor_group_packet_lengths:
-			packet_size = sensor_group_packet_lengths[strid]
+		if strid in sensor_packet_lengths:
+			packet_size = sensor_packet_lengths[strid]
 			packet = (packet_id,)
 		else:
 			raise Exception("Invalid packet id")
 
-		self.SCI.write(opcodes['sensors'], packet)
+		self.SCI.write(opcodes.SENSORS, packet)
 		time.sleep(0.005)
 		packet_byte_data = list(self.SCI.read(packet_size))
 
@@ -352,8 +351,9 @@ class Create2(object):
 			raise Exception('Could not communicate with Create 2')
 
 		# Once we have the byte data, we need to decode the packet and save the new sensor state
-		self.sensor_state = self.decoder.decode_packet(packet_id, packet_byte_data, self.sensor_state)
-		return True
+		sensor_state =[]
+		sensor_state = self.decoder.decode_packet(packet_id, packet_byte_data, sensor_state)
+		return sensor_state
 
 	# def drive_pwm(self):
 	# 	"""
@@ -386,7 +386,7 @@ class Create2(object):
 	# 	# Need to make sure the packet_id is a string
 	# 	packet_id = str(packet_id)
 	# 	# Check to make sure that the packet ID is valid.
-	# 	if packet_id in sensor_group_packet_lengths:
+	# 	if packet_id in sensor_packet_lengths:
 	# 		# Valid packet, send request (But convert it back to an int in a list first)
 	# 		packet_id = [int(packet_id)]
 	# 		self.SCI.write(opcodes['sensors'], tuple(packet_id))
