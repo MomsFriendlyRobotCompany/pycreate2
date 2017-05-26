@@ -1,4 +1,4 @@
-.. image:: pics/create.png
+.. image:: https://raw.githubusercontent.com/walchko/pycreate2/master/pics/create.png
 	:align: center
 
 pyCreate2
