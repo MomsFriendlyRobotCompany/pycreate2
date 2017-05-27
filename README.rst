@@ -120,6 +120,17 @@ bump wheeldrops  [0-15]          7
 
 You can call these individually with ``get_packet()`` or several of them using ``query_list()``.
 
+To Do
+------
+
+- Figure out how to handle senors better
+- Most people follow iRobots insane naming convention (there might some thought behind it, but I don't see it), maybe break from it and replace with some common sense
+- Still working out the syntax, need to make more examples
+- Need to write some tests for python 2 and 3
+- Need to setup static code analysis
+- Need to setup travis.ci ... but need tests to run :)
+- Need a monitoring window to show sensor values/states
+
 Change Log
 ---------------
 
