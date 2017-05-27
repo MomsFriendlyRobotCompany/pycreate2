@@ -30,7 +30,7 @@ import time
 # from config import Config
 from .packet import SensorPacketDecoder
 from .createSerial import SerialCommandInterface
-from .OI import ascii_table
+from . import OI.ascii_table
 from .OI import sensor_packet_lengths
 from .OI import opcodes
 # from openInterface import oi_modes
