@@ -4,7 +4,7 @@ Some clarification on the Roomba Open Interface and this library.
 
 ## Implemented OI codes
 
-Not everything is implemented.
+Not everything is implemented. Eventually, I will put some documentation here, but right now it is probably easier to just read the code or look at the examples.
 
 - Start
 - Reset
@@ -20,11 +20,23 @@ Not everything is implemented.
 - Play
 - Query List
 
-## More Mode Details
+# Useful Tables and Figures from the Manual
+
+![](../../pics/din_pinout.png)
+
+![](../../pics/ascii.png)
+
+![](../../pics/midi.png)
+
+![](../../pics/sensor-packet-size.png)
+
+![](../../pics/sensor-packets.png)
+
+# More Mode Details
 
 Note, these are copied from the manual.
 
-### Passive Mode
+## Passive Mode
 
 Upon sending the Start command or any one of the cleaning mode commands (e.g.,
 Spot, Clean, Seek Dock), the OI enters into Passive mode. When the OI is in
@@ -44,7 +56,7 @@ minute counter. (One example that would not cause the baud rate to inadvertently
 change is to pulse the pin low for one second, every minute, but there are other
 periods and duty cycles that would work, as well.)
 
-### Safe Mode
+## Safe Mode
 
 When you send a Safe command to the OI, Roomba enters into Safe mode. Safe mode
 gives you full control of Roomba, with the exception of the following safety-related
@@ -63,7 +75,7 @@ and LEDs off and does not respond to button presses or other sensor input.
 Note that charging terminates when you enter Safe Mode, and Roomba will not power
 save.
 
-### Full Mode
+## Full Mode
 
 When you send a Full command to the OI, Roomba enters into Full mode. Full mode
 gives you complete control over Roomba, all of its actuators, and all of the
@@ -77,7 +89,7 @@ and LEDs off and does not respond to button presses or other sensor input.
 Note that charging terminates when you enter Full Mode, and Roomba will not power
 save.
 
-## Encoders
+# Encoders
 
 From the manual.
 
@@ -98,6 +110,8 @@ for circle circumference.
 There are numerous issues with the Create 2, like the version before it.
 
 - the encoders aren't that great
+- why are they using a DIN-7 for the interface, what is this ... the 80's?
+- there is no power available for an arduino or raspberry pi from the provided USB cable, you have to make your own and some people have reported it didn't work. It is just easier, probably, to get another battery to power your processor
 - the song function is finicky and doesn't always work right
 - roomba can become confused and the only way to reset it is to unscrew the base plate and pull the batter ... great job geniuses!!
 - there are numerous reports that the USB cable is wired wrong, so trying to wake the roomba by toggling the BRC pin (RTS on serial) doesn't work. I think I got it to work once on my roomba, but it is not repeatable or reliable.
