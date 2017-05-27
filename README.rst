@@ -4,6 +4,17 @@
 pyCreate2
 ================
 
+.. image:: https://img.shields.io/pypi/l/pycreate2.svg
+    :target: https://pypi.python.org/pypi/pycreate2
+.. image:: https://img.shields.io/pypi/pyversions/pycreate2.svg
+    :target:  https://pypi.python.org/pypi/pycreate2
+.. image:: https://travis-ci.org/walchko/pycreate2.svg?branch=master
+    :target: https://travis-ci.org/walchko/pycreate2
+.. image:: https://img.shields.io/pypi/v/pycreate2.svg
+    :target: https://pypi.python.org/pypi/pycreate2
+.. image:: https://img.shields.io/pypi/format/pycreate2.svg
+    :target:  https://pypi.python.org/pypi/pycreate2
+
 A python library for controlling the `iRobot Create 2 <http://www.irobot.com/About-iRobot/STEM/Create-2.aspx>`_.
 
 **Still a work in progress**
