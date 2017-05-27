@@ -29,9 +29,9 @@ import struct
 import time
 from .packet import SensorPacketDecoder
 from .createSerial import SerialCommandInterface
-from OI import ascii_table
-from OI import sensor_packet_lengths
-from OI import opcodes
+from pycreate2.OI import ascii_table
+from pycreate2.OI import sensor_packet_lengths
+from pycreate2.OI import opcodes
 
 
 class Fatal(Exception):
