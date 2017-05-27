@@ -57,6 +57,10 @@ class Create2(object):
 	"""
 
 	def __init__(self, port='/dev/tty.usbserial-DA01NX3Z', baud=115200):
+		"""
+		Constructor, sets up class
+		- creates serial port
+		"""
 		self.SCI = SerialCommandInterface()
 		self.SCI.open(port, baud)
 		# self.config = Config()
@@ -71,6 +75,7 @@ class Create2(object):
 		self.sleep_timer = 0.5
 
 	def __del__(self):
+		"""Destructor, cleans up when class goes out of scope"""
 		# stop
 		self.drive_stop()
 		time.sleep(self.sleep_timer)
@@ -287,6 +292,13 @@ class Create2(object):
 	"""------------------------ Songs ---------------------------- """
 
 	def createSong(self, song_num, notes):
+		"""
+		Creates a song
+		
+		Arguments
+			song_num: 1-4
+			notes: 16 notes and 16 durations each note should be held for (1 duration = 1/64 second)
+		"""
 		size = len(notes)
 		if (2 > size > 32) or (size % 2 != 0):
 			raise Exception('Songs must be between 1-16 notes and have a duration')
@@ -300,6 +312,11 @@ class Create2(object):
 		self.SCI.write(msg)
 
 	def playSong(self, song_num):
+		"""
+		Play a song
+			Arguments
+				song_num: 1-4
+		"""
 		if 0 > song_num > 4:
 			raise Exception('Song number must be between 0 and 4')
 
@@ -310,7 +327,12 @@ class Create2(object):
 
 	def query_list(self, pkts, packet_size):
 		"""
-		This command lets you ask for a list of sensor packets. The result is returned once, as in the Sensors command. The robot returns the packets in the order you specify.
+		This command lets you ask for a list of sensor packets. The result is returned once, as in the 
+		Sensors command. The robot returns the packets in the order you specify.
+		
+			Arguments
+				pkts: array of packet numbers like: [34, 22, 67]
+				packet_size: the number of bytes that will be returned and need to be read by the serial port
 		"""
 		# self.SCI.write(opcodes['start'],0)
 		# raise NotImplementedError()
