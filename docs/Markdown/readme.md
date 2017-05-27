@@ -113,9 +113,10 @@ There are numerous issues with the Create 2, like the version before it.
 - why are they using a DIN-7 for the interface, what is this ... the 80's?
 - there is no power available for an arduino or raspberry pi from the provided USB cable, you have to make your own and some people have reported it didn't work. It is just easier, probably, to get another battery to power your processor
 - the song function is finicky and doesn't always work right
-- roomba can become confused and the only way to reset it is to unscrew the base plate and pull the batter ... great job geniuses!!
+- roomba can become confused and the only way to reset it is to unscrew the base plate and pull the battery ... great job geniuses!!
+- the robot seems to refuse to report its current mode (response to packet 35) ... I never get a response
 - there are numerous reports that the USB cable is wired wrong, so trying to wake the roomba by toggling the BRC pin (RTS on serial) doesn't work. I think I got it to work once on my roomba, but it is not repeatable or reliable.
-- basically the firmware of the roomba is shit, closed source, and full of vacuum functions that shouldn't be there anymore. I know it is basically a reconditioned vacuum, but a separate firmware (open source maybe) would be great to fix all the ills of the robot. Also, I can't find anyway to update the firmware either ... there is probably some painful way to do it, but I haven't found it yet.
+- basically the firmware of the roomba is shit, closed source, and full of vacuum functions that shouldn't be there anymore. I know it is basically a reconditioned vacuum, but a separate firmware (open source maybe) would be great to fix all the ills of the robot. Also, I can't find anyway to update the firmware either ... there is probably some super painful way to do it, but I haven't found it yet.
     - I think some intern wrote this mess of a firmware
 - basically, iRobot is just trying to make more money by pushing old crap, but there aren't a lot of good alternatives ... yes I am am ranting.
 
