@@ -1,6 +1,10 @@
 # API
 
+Some clarification on the Roomba Open Interface and this library.
+
 ## Implemented OI codes
+
+Not everything is implemented.
 
 - Start
 - Reset
@@ -8,7 +12,7 @@
 - Safe
 - Full
 - Seek Dock
-- Power (Off)
+- Power
 - Drive
 - Digit LED ASCII
 - Sensors
@@ -16,7 +20,11 @@
 - Play
 - Query List
 
-## Passive Mode
+## More Mode Details
+
+Note, these are copied from the manual.
+
+### Passive Mode
 
 Upon sending the Start command or any one of the cleaning mode commands (e.g.,
 Spot, Clean, Seek Dock), the OI enters into Passive mode. When the OI is in
@@ -36,7 +44,7 @@ minute counter. (One example that would not cause the baud rate to inadvertently
 change is to pulse the pin low for one second, every minute, but there are other
 periods and duty cycles that would work, as well.)
 
-## Safe Mode
+### Safe Mode
 
 When you send a Safe command to the OI, Roomba enters into Safe mode. Safe mode
 gives you full control of Roomba, with the exception of the following safety-related
@@ -55,7 +63,7 @@ and LEDs off and does not respond to button presses or other sensor input.
 Note that charging terminates when you enter Safe Mode, and Roomba will not power
 save.
 
-## Full Mode
+### Full Mode
 
 When you send a Full command to the OI, Roomba enters into Full mode. Full mode
 gives you complete control over Roomba, all of its actuators, and all of the
@@ -69,8 +77,9 @@ and LEDs off and does not respond to button presses or other sensor input.
 Note that charging terminates when you enter Full Mode, and Roomba will not power
 save.
 
-
 ## Encoders
+
+From the manual.
 
 **NOTE:** These encoders are square wave, not quadrature, so they rely on the
 robot’s commanded velocity direction to know when to count up/down. So if the
@@ -84,9 +93,19 @@ for circle circumference.
 - N counts * (mm in 1 wheel revolution / counts in 1 wheel revolution) = mm
 - N counts * (pi * 72.0 / 508.8) = mm
 
-## Issues
+# Issues
 
-### macOS
+There are numerous issues with the Create 2, like the version before it.
+
+- the encoders aren't that great
+- the song function is finicky and doesn't always work right
+- roomba can become confused and the only way to reset it is to unscrew the base plate and pull the batter ... great job geniuses!!
+- there are numerous reports that the USB cable is wired wrong, so trying to wake the roomba by toggling the BRC pin (RTS on serial) doesn't work. I think I got it to work once on my roomba, but it is not repeatable or reliable.
+- basically the firmware of the roomba is shit, closed source, and full of vacuum functions that shouldn't be there anymore. I know it is basically a reconditioned vacuum, but a separate firmware (open source maybe) would be great to fix all the ills of the robot. Also, I can't find anyway to update the firmware either ... there is probably some painful way to do it, but I haven't found it yet.
+    - I think some intern wrote this mess of a firmware
+- basically, iRobot is just trying to make more money by pushing old crap, but there aren't a lot of good alternatives ... yes I am am ranting.
+
+## macOS
 
 Apple's [USB-A-to-C](https://www.apple.com/shop/product/MJ1M2AM/A/usb-c-to-usb-adapter)
 converter doesn't work with iRobot's USB-to-serial converter. I used a
