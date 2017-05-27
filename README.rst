@@ -6,6 +6,8 @@ pyCreate2
 
 A python library for controlling the iRobot Create 2.
 
+**Still a work in progress**
+
 Install
 ------------
 
@@ -68,6 +70,10 @@ Interacting with your bot is a breeze:
 
 	# Stop the bot
 	bot.drive_stop()
+
+	# query some sensors
+	sensor_pkts = [46, 47, 48, 49, 50, 51]  # ir bump sensors
+	ir = bot.query_list(sensor_pkts, 12)
 
 	# Close the connection
 	# bot.close()
@@ -135,7 +141,7 @@ save.
 Sensor Data
 -------------
 
-Here are some of the useful sensor packets.
+Here are some of the more useful sensor packets.
 
 ================ =============== =================
 Sensor           Range           Packet Numbers
@@ -151,7 +157,7 @@ battery capacity [0-65535]       26 (doesn't change?)
 cliff            [0-1]           9-12
 cliff signal     [0-4095]        28-31
 overcurrents     [0-29]          14
-bump wheeldrops  [015]           7
+bump wheeldrops  [0-15]          7
 ================ =============== =================
 
 
