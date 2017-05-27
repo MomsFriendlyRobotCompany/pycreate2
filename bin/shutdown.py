@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-import create2api
+import pycreate2
 import time
 
 
@@ -12,7 +12,7 @@ baud = {
 	'alt': 19200
 }
 
-bot = create2api.Create2(port=port, baud=baud['default'])
+bot = pycreate2.Create2(port=port, baud=baud['default'])
 
 bot.start()
 # bot.shutdown()

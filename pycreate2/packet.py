@@ -23,6 +23,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+from __future__ import print_function
+from __future__ import division
 import struct
 # from OI import sensor_packet_lengths
 
@@ -37,7 +39,6 @@ class SensorPacketDecoder(object):
 	"""
 
 	def __init__(self):
-		# self.lengths = sensor_packet_lengths
 		pass
 
 	# def decode_packet(self, packet_id, byte_data, sensor_data):
@@ -52,8 +53,6 @@ class SensorPacketDecoder(object):
 		Returns:
 			A dict containing the updated sensor states of the Create 2
 		"""
-		# return_dict = None
-		# sensor_data = []
 		if not isinstance(id, int):
 			id = int(id)  # Convert the packet id from a string to an int
 
@@ -498,7 +497,9 @@ class SensorPacketDecoder(object):
 			'left wheel': bool(byte & 0x10),
 			'right wheel': bool(byte & 0x08),
 			'main brush': bool(byte & 0x04),
-			'side brush': bool(byte & 0x01)}
+			'side brush': bool(byte & 0x01)
+		}
+
 		return return_dict
 
 	def decode_packet_15(self, data):
@@ -548,7 +549,8 @@ class SensorPacketDecoder(object):
 			'minute': bool(byte & 0x08),
 			'dock': bool(byte & 0x04),
 			'spot': bool(byte & 0x02),
-			'clean': bool(byte & 0x01)}
+			'clean': bool(byte & 0x01)
+		}
 
 		return return_dict
 

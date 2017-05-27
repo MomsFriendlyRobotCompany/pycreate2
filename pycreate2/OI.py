@@ -1,5 +1,7 @@
+from __future__ import print_function
+from __future__ import division
 from . import opcodes
-from . import sensorPacketLengths as sensor_packet_lengths
+from .sensorPacketLengths import sensor_packet_lengths
 
 charging_states = [
 	"not-charging",
@@ -9,6 +11,14 @@ charging_states = [
 	"waiting",
 	"charging-error"
 ]
+
+
+def calc_query_data_len(pkts):
+	packet_size = 0
+	for p in pkts:
+		packet_size += sensor_packet_lengths[str(p)]
+	return packet_size
+
 
 oi_modes = [
 	"off",

@@ -52,65 +52,50 @@ class Create2(object):
 	This is the only class that outside scripts should be interacting with.
 	"""
 
-	def __init__(self, port='/dev/tty.usbserial-DA01NX3Z', baud=115200):
+	def __init__(self, port, baud=115200):
 		"""
 		Constructor, sets up class
 		- creates serial port
+		- creates decoder
 		"""
 		self.SCI = SerialCommandInterface()
 		self.SCI.open(port, baud)
-		# self.config = Config()
-		# self.config.load()
 		self.decoder = SensorPacketDecoder()
-
-		# FIXME: replace with Null and then read first thing
-		# self.sensor_state = dict(self.config.data['sensor data'])  # Load a raw sensor dict. None of these values are correct.
-		# self.sensor_state = self.get_packet(100)
-		# self.sensor_state = None
-		# time.sleep(1)
 		self.sleep_timer = 0.5
 
 	def __del__(self):
 		"""Destructor, cleans up when class goes out of scope"""
-		# stop
+		# stop motors
 		self.drive_stop()
 		time.sleep(self.sleep_timer)
 
-		# self.stop()  # power down
+		self.power()
+		time.sleep(0.1)
+		self.stop()  # power down
+		time.sleep(0.1)
 		self.close()  # close serial port
+		time.sleep(0.1)
 
 	def close(self):
 		"""
 		Closes up serial ports and terminates connection to the Create2
 		"""
 		self.SCI.close()
-		# print('Disconnected')
 
 	"""------------------- Mode Control ------------------------"""
 	def start(self):
 		"""
-		This command starts the OI. You must always send the Start command
+		Puts the Create 2 into Passive mode. You must always send the Start command
 		before sending any other commands to the OI.
 		"""
 		# self.SCI.open()
 		self.SCI.write(opcodes['start'])
+		time.sleep(self.sleep_timer)
 
 	def getMode(self):
-		# packet_id = '35'
-		# packet_size = sensor_packet_lengths[packet_id]
-		# print('sending:', opcodes['oi_mode'])
-		# self.SCI.write(opcodes['oi_mode'])
-		# packet_byte_data = self.SCI.read(packet_size)
-		# if packet_byte_data is None:
-		# 	print('crap ... nothing')
-		# 	return
-		# print('raw packet', list(packet_byte_data))
-		# packet_byte_data = list(packet_byte_data)
-		# tmp = []
-		# ret = self.decoder.decode_packet(packet_id, packet_byte_data, tmp)
-		# print(packet_byte_data)
-		# print(ret)
-		# print()
+		"""
+		This doesn't seem to work
+		"""
 		self.SCI.write((opcodes.MODE))
 		time.sleep(0.005)
 		ans = self.SCI.read(1)
@@ -142,7 +127,7 @@ class Create2(object):
 
 	def stop(self):
 		"""
-		This command stops the OI. All streams will stop and the robot will no
+		Puts the Create 2 into OFF mode. All streams will stop and the robot will no
 		longer respond to commands. Use this command when you are finished
 		working with the robot.
 		"""
@@ -168,13 +153,14 @@ class Create2(object):
 	def seek_dock(self):
 		self.SCI.write(opcodes['seek_dock'])
 
-	def shutdown(self):
+	def power(self):
 		"""
-		This command powers down Roomba. The OI can be in Passive, Safe, or
+		Puts the Create 2 into Passive mode. The OI can be in Safe, or
 		Full mode to accept this command.
 		"""
 		msg = (opcodes['power'],)
 		self.SCI.write(msg)
+		time.sleep(self.sleep_timer)
 
 	""" ------------------ Drive Commands ------------------"""
 
@@ -290,7 +276,7 @@ class Create2(object):
 	def createSong(self, song_num, notes):
 		"""
 		Creates a song
-		
+
 		Arguments
 			song_num: 1-4
 			notes: 16 notes and 16 durations each note should be held for (1 duration = 1/64 second)
@@ -323,9 +309,9 @@ class Create2(object):
 
 	def query_list(self, pkts, packet_size):
 		"""
-		This command lets you ask for a list of sensor packets. The result is returned once, as in the 
+		This command lets you ask for a list of sensor packets. The result is returned once, as in the
 		Sensors command. The robot returns the packets in the order you specify.
-		
+
 			Arguments
 				pkts: array of packet numbers like: [34, 22, 67]
 				packet_size: the number of bytes that will be returned and need to be read by the serial port
@@ -369,7 +355,7 @@ class Create2(object):
 			raise Exception('Could not communicate with Create 2')
 
 		# Once we have the byte data, we need to decode the packet and save the new sensor state
-		sensor_state =[]
+		sensor_state = []
 		sensor_state = self.decoder.decode_packet(packet_id, packet_byte_data, sensor_state)
 		return sensor_state
 
