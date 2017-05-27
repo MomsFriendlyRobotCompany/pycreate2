@@ -75,10 +75,12 @@ Use
 	# Close the connection
 	# bot.close()
 
+More examples are found in the `examples folder <https://github.com/walchko/pycreate2/tree/master/examples>`_.
+
 Documents
 ------------
 
-Additional notes and documents are in the `docs folder <https://github.com/walchko/pycreate2/tree/master/docs/Markdown>`_
+Additional notes and documents are in the `docs folder <https://github.com/walchko/pycreate2/tree/master/docs/Markdown>`_.
 
 Modes
 ~~~~~~~~~
