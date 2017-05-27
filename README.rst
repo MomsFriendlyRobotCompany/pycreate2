@@ -27,6 +27,14 @@ If you wish to develop and submit git-pulls, you can do::
 	cd pycreate2
 	pip install -e .
 
+Unit Testing
+~~~~~~~~~~~~~~~~
+
+::
+
+	nosetests -v -w tests test.py
+	python3 -m nose -v -w tests test.py
+
 Use
 -------------
 
