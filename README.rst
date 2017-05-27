@@ -4,7 +4,7 @@
 pyCreate2
 ================
 
-A python library for controlling the [iRobot Create 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx).
+A python library for controlling the `iRobot Create 2 <http://www.irobot.com/About-iRobot/STEM/Create-2.aspx>`_.
 
 **Still a work in progress**
 
@@ -78,13 +78,21 @@ Use
 Documents
 ------------
 
-Additional notes and documents are in the [docs folder](https://raw.githubusercontent.com/walchko/pycreate2/master/docs/Markdown/)
+Additional notes and documents are in the `docs folder <https://github.com/walchko/pycreate2/tree/master/docs/Markdown>`_
 
 Modes
 ~~~~~~~~~
 
 .. image:: https://raw.githubusercontent.com/walchko/pycreate2/master/pics/create_modes.png
 	:align: center
+
+The different modes (OFF, PASSIVE, SAFE, and FULL) can be switched between by calling different
+commands.
+
+- **OFF:** The robot is off and can charge, it will accept no commands
+- **PASSIVE:** The robot is in standbye and can charge. It will send sensor packets, but will not move
+- **SAFE:** The robot will not charge, but you full control over it with a few exceptions. If the cliff sensors or wheel drop sensors are triggered, the robot goes back to PASSIVE mode.
+- **FULL:** The robot will not charge and you have full control. You are responsible to handle any response due to cliff, wheel drop or any other sensors.
 
 Sensor Data
 ~~~~~~~~~~~~~
@@ -107,6 +115,8 @@ cliff signal     [0-4095]        28-31
 overcurrents     [0-29]          14
 bump wheeldrops  [0-15]          7
 ================ =============== =================
+
+You can call these individually with ``get_packet()`` or several of them using ``query_list()``.
 
 Change Log
 ---------------
