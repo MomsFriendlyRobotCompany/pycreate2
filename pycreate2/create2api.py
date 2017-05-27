@@ -89,7 +89,7 @@ class Create2(object):
 		before sending any other commands to the OI.
 		"""
 		# self.SCI.open()
-		self.SCI.write(opcodes['start'])
+		self.SCI.write(opcodes.START)
 		time.sleep(self.sleep_timer)
 
 	def getMode(self):
@@ -119,7 +119,7 @@ class Create2(object):
 
 		('Firmware Version:', 'bl-start\r\nSTR730\r\nbootloader id: #x47186549 82ECCFFF\r\nbootloader info rev: #xF000\r\nbootloader rev: #x0001\r\n2007-05-14-1715-L   \r')
 		"""
-		msg = (opcodes['reset'],)
+		msg = (opcodes.RESET,)
 		self.SCI.write(msg)
 		time.sleep(1)
 		ret = self.SCI.read(128)
@@ -131,7 +131,7 @@ class Create2(object):
 		longer respond to commands. Use this command when you are finished
 		working with the robot.
 		"""
-		self.SCI.write(opcodes['stop'])
+		self.SCI.write(opcodes.STOP)
 		time.sleep(self.sleep_timer)
 
 	def safe(self):
@@ -139,7 +139,7 @@ class Create2(object):
 		Puts the Create 2 into safe mode. Blocks for a short (<.5 sec) amount
 		of time so the bot has time to change modes.
 		"""
-		self.SCI.write(opcodes['safe'])
+		self.SCI.write(opcodes.SAFE)
 		time.sleep(self.sleep_timer)
 
 	def full(self):
@@ -147,18 +147,18 @@ class Create2(object):
 		Puts the Create 2 into full mode. Blocks for a short (<.5 sec) amount
 		of time so the bot has time to change modes.
 		"""
-		self.SCI.write(opcodes['full'])
+		self.SCI.write(opcodes.FULL)
 		time.sleep(self.sleep_timer)
 
 	def seek_dock(self):
-		self.SCI.write(opcodes['seek_dock'])
+		self.SCI.write(opcodes.SEEK_DOCK)
 
 	def power(self):
 		"""
 		Puts the Create 2 into Passive mode. The OI can be in Safe, or
 		Full mode to accept this command.
 		"""
-		msg = (opcodes['power'],)
+		msg = (opcodes.POWER,)
 		self.SCI.write(msg)
 		time.sleep(self.sleep_timer)
 
@@ -220,7 +220,7 @@ class Create2(object):
 			raise Exception("Invalid radius input")
 
 		data = struct.unpack('4B', struct.pack('>2H', v, r))
-		self.SCI.write(opcodes['drive'], data)
+		self.SCI.write(opcodes.DRIVE, data)
 
 	"""------------------------ LED ---------------------------- """
 
@@ -267,7 +267,7 @@ class Create2(object):
 					raise Exception("Warning: Char '" + display_string[i] + "' was not found in ascii table")
 
 			# print display_list
-			self.SCI.write(opcodes['digit_led_ascii'], tuple(display_list))
+			self.SCI.write(opcodes.DIGIT_LED_ASCII, tuple(display_list))
 		else:
 			raise Exception("Invalid data, failed to send")
 
