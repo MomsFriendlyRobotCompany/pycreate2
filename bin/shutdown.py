@@ -15,8 +15,10 @@ baud = {
 bot = pycreate2.Create2(port=port, baud=baud['default'])
 
 bot.start()
+time.sleep(0.25)
+bot.power()  # this seems to shut it down more than stop ... confused
 # bot.shutdown()
-# time.sleep(1)
+time.sleep(0.25)
 bot.stop()
 time.sleep(1)
 
