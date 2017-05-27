@@ -1,5 +1,5 @@
 from .create2api import Create2
-from . import OI
+#from pycreate2 import OI
 from .create2api import Fatal, Error, Warning
 
 from .version import __version__
