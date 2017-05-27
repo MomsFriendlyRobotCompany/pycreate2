@@ -4,70 +4,14 @@ language: python
 sudo: false
 
 python:
-    # - "2.7_with_system_site_packages"
-    # - "3.6"
+    - "3.6"
     - "2.7"
-
-# command to install dependencies that require sudo
-# https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-addons:
-    apt:
-        packages:
-            # - python-zmq
-            # - python-nose
-            # - python-numpy
-            # - python-six
-            # - python-yaml
-            - libzmq3-dev
-            - sox
-            # - python-opencv
-            # - libopencv-dev
-            - libportaudio-dev
-            # - python-numpy
-            # - python-scipy
-            - gnustep
-            # opencv3 build
-            - python-numpy
-            - python-yaml
-            - build-essential
-            - cmake
-            - python-tk
-            - libgtk2.0-dev
-            - pkg-config
-            - libavcodec-dev
-            - libavformat-dev
-            - libswscale-dev
-            - python-dev
-            - python-numpy
-            - libtbb-dev
-            - libjpeg-dev
-            - libpng-dev
-            - libtiff-dev
-            - libjasper-dev
-            - ffmpeg
-            - python-matplotlib
-
-# cache the opencv3 build so we don't have to rebuild it every time
-cache:
-    directories:
-        - $OPENCV_INSTALL_DIR
-    pip: true
-env:
-  global:
-    - OPENCV_VERSION=3.2.0
-    - OPENCV_INSTALL_DIR="$HOME/opencv-$OPENCV_VERSION-install"
-    - LD_LIBRARY_PATH="$OPENCV_INSTALL_DIR/lib"
-    - PKG_CONFIG_PATH="$OPENCV_INSTALL_DIR/lib/pkgconfig"
-    - PYTHONPATH="$OPENCV_INSTALL_DIR/lib/python2.7/site-packages"
 
 # install other libraries using pip
 install:
-    - ./install-opencv.sh
     - pip install -U pip setuptools wheel
-    # - pip install -U pyzmq pyyaml opencvutils simplejson wit quaternions numdifftools pyrk
-    - pip install -U pyzmq pyyaml opencvutils simplejson quaternions pyrk fake_rpi build_utils
-    - pip install .
-    # - pip install -U -r requirements.txt
+    - pip install -U -r requirements.txt
+    - pip install -U .
 
 # command to run tests
 script: nosetests -v -w tests test.py
