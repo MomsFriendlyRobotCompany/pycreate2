@@ -355,7 +355,7 @@ class Create2(object):
 			raise Exception('Could not communicate with Create 2')
 
 		# Once we have the byte data, we need to decode the packet and save the new sensor state
-		sensor_state = []
+		sensor_state = {}
 		sensor_state = self.decoder.decode_packet(packet_id, packet_byte_data, sensor_state)
 		return sensor_state
 
