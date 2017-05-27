@@ -1,5 +1,5 @@
 from . import opcodes
-from . import sensor_packet_lengths
+from . import sensorPacketLengths as sensor_packet_lengths
 
 charging_states = [
 	"not-charging",
