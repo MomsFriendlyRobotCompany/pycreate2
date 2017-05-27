@@ -4,7 +4,7 @@
 pyCreate2
 ================
 
-A python library for controlling the iRobot Create 2
+A python library for controlling the iRobot Create 2.
 
 Install
 ------------
@@ -14,7 +14,7 @@ pip
 
 The recommended way to install this library is::
 
-	pip install pygecko
+	pip install pycreate2
 
 Development
 ~~~~~~~~~~~~~
@@ -33,15 +33,13 @@ Interacting with your bot is a breeze:
 
 .. code-block:: python
 
-	import create2api
+	from  pycreate2 import Create2
 	import time
 
 	# Create a Create2.
-	bot = create2api.Create2()
-	bot.wakeup()  # in case it is asleep
+	bot = Create2()
 
 	# Start the Create 2
-	# open serial port
 	bot.start()
 
 	# Put the Create2 into 'safe' mode so we can drive it
@@ -57,20 +55,19 @@ Interacting with your bot is a breeze:
 	time.sleep(2)
 
 	# Turn in place
-	bot.turn(100, 0)
+	bot.drive_turn(100, 0)
 	time.sleep(2)
 
 	# Turn in place
-	bot.turn(-100, 0)
+	bot.drive_turn(-100, 0)
 	time.sleep(4)
 
 	# Turn in place
-	bot.turn(100, 0)
+	bot.drive_turn(100, 0)
 	time.sleep(2)
 
 	# Stop the bot
-	bot.stop()
-	# bot.shutdown()  # powers it down saving batteries
+	bot.drive_stop()
 
 	# Close the connection
 	# bot.close()
@@ -172,7 +169,7 @@ To convert counts to distance, simply do a unit conversion using the equation
 for circle circumference.
 
 - N counts * (mm in 1 wheel revolution / counts in 1 wheel revolution) = mm
-- N counts * (π * 72.0 / 508.8) = mm
+- N counts * (pi * 72.0 / 508.8) = mm
 
 Issues
 ----------
@@ -180,8 +177,9 @@ Issues
 macOS
 ~~~~~~~~~~
 
-Apple's [USB-A-to-C]() converter doesn't work with iRobot's USB-to-serial
-converter. I used a [Monoprice USB-C Hub](https://www.amazon.com/gp/product/B019FN66IC/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1)
+Apple's `USB-A-to-C <https://www.apple.com/shop/product/MJ1M2AM/A/usb-c-to-usb-adapter>`_
+converter doesn't work with iRobot's USB-to-serial converter. I used a
+`Monoprice USB-C Hub <https://www.amazon.com/gp/product/B019FN66IC/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1>`_
 and it worked fine.
 
 
