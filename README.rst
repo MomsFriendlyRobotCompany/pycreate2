@@ -104,10 +104,9 @@ When you send a Safe command to the OI, Roomba enters into Safe mode. Safe mode
 gives you full control of Roomba, with the exception of the following safety-related
 conditions:
 
-- Detection of a cliff while moving forward (or moving backward with a small
-turning radius, less than one robot radius).
-- Detection of a wheel drop (on any wheel).
-- Charger plugged in and powered.
+- Detection of a cliff while moving forward (or moving backward with a small turning radius, less than one robot radius)
+- Detection of a wheel drop (on any wheel)
+- Charger plugged in and powered
 
 Should one of the above safety-related conditions occur while the OI is in Safe
 mode, Roomba stops all motors and reverts to the Passive mode.
