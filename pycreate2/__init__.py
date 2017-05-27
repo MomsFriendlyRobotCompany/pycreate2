@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import division
 from .create2api import Create2
 #from pycreate2 import OI
 from .create2api import Fatal, Error, Warning
