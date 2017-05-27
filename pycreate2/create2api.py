@@ -27,15 +27,11 @@ from __future__ import print_function
 from __future__ import division
 import struct
 import time
-# from config import Config
 from .packet import SensorPacketDecoder
 from .createSerial import SerialCommandInterface
-from . import OI.ascii_table
-from .OI import sensor_packet_lengths
-from .OI import opcodes
-# from openInterface import oi_modes
-# from openInterface import baudrates
-# from datetime import datetime
+from OI import ascii_table
+from OI import sensor_packet_lengths
+from OI import opcodes
 
 
 class Fatal(Exception):
