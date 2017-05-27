@@ -4,6 +4,8 @@ engines:
     checks:
       W191:
         enabled: false
+      E501:
+        enabled: false
 ratings:
    paths:
    - "**.py"
