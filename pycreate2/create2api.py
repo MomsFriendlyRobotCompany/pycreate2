@@ -318,15 +318,16 @@ class Create2(object):
 		"""
 		# self.SCI.write(opcodes['start'],0)
 		# raise NotImplementedError()
-		if not isinstance(pkts, tuple):
-			pkts = tuple(pkts,)
-		cmd = (opcodes.QUERY_LIST, len(pkts)) + pkts
+		# if not isinstance(pkts, tuple):
+		# 	pkts = tuple(pkts,)
+		# cmd = (opcodes.QUERY_LIST, len(pkts)) + tuple(pkts)
+		cmd = (len(pkts),) + tuple(pkts)
 
 		# packet_size = 0
 		# for p in pkts:
 		# 	packet_size += sensor_packet_lengths[str(p)]
 
-		self.SCI.write(cmd)
+		self.SCI.write(opcodes.QUERY_LIST, cmd)
 		time.sleep(0.015)  # wait 15 msec
 		packet_byte_data = list(self.SCI.read(packet_size))
 		return packet_byte_data

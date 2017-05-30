@@ -35,19 +35,21 @@ class SerialCommandInterface(object):
 			raise Exception('Failed to open {} at {}'.format(port, baud))
 
 	def write(self, opcode, data=None):
-		if not self.ser.isOpen():
-			raise Exception('You must open the serial port first')
+		# if not self.ser.isOpen():
+		# 	raise Exception('You must open the serial port first')
 
 		# First thing to do is convert the opcode to a tuple.
-		if not isinstance(opcode, tuple):
-			opcode = (opcode,)
+		# if not isinstance(opcode, tuple):
+		# 	opcode = (opcode,)
 
-		msg = opcode
+		msg = (opcode,)
 
 		# Sometimes opcodes don't need data. Since we can't add
 		# a None type to a tuple, we have to make this check.
 		if data:
 			msg += data
+
+		print(msg)
 
 		self.ser.write(struct.pack('B' * len(msg), *msg))
 
