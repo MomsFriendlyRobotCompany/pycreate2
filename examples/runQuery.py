@@ -1,38 +1,50 @@
 #!/usr/bin/env python
+# ----------------------------------------------------------------------------
+# MIT License
+# shows how to get sensor data from the create 2
 
 from __future__ import print_function
 import pycreate2
-from pycreate2.OI import calc_query_data_len
-from pprint import pprint
 import time
 
 
-# Create a Create2 Bot
-port = '/dev/tty.usbserial-DA01NX3Z'
-baud = {
-	'default': 115200,
-	'alt': 19200  # shouldn't need this unless you accidentally set it to this
-}
+def prettyPrint(sensors):
+	print('-'*70)
+	print('{:>40} | {:<5}'.format('Sensor', 'Value'))
+	print('-'*70)
+	for k, v in sensors.items():
+		print('{:>40} | {:<5}'.format(k, v))
 
-# setup create 2
-bot = pycreate2.Create2(port)
-bot.start()
-bot.safe()
 
-sensors = {}
+if __name__ == "__main__":
+	# Create a Create2 Bot
+	port = '/dev/tty.usbserial-DA01NX3Z'
+	baud = {
+		'default': 115200,
+		'alt': 19200  # shouldn't need this unless you accidentally set it to this
+	}
 
-pkts = [46, 47, 48, 49, 50, 51]
-sensor_pkt_len = calc_query_data_len(pkts)
+	# setup create 2
+	bot = pycreate2.Create2(port)
+	bot.start()
+	bot.safe()
 
-while True:
-	raw = bot.query_list(pkts, sensor_pkt_len)
+	bot.digit_led_ascii('hi')  # set a nice message
+	bot.led(1)  # turn on debris light
 
-	if raw:
-		for p in pkts:
-			bot.decoder.decode_packet(p, raw, sensors)
-		print('Sensors:')
-		pprint(sensors)
-	else:
-		print('robot asleep')
+	sensors = {}
 
-	# time.sleep(0.05)
+	pkts = [46, 47, 48, 49, 50, 51]
+
+	try:
+		while True:
+			sensors = bot.inputCommands(pkts)
+			if sensors:
+				prettyPrint(sensors)
+			else:
+				print('robot asleep')
+
+			time.sleep(1)
+
+	except KeyboardInterrupt:
+		print('shutting down ... bye')

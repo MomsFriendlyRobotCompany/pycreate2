@@ -4,26 +4,61 @@ import serial
 import struct
 # import time
 # from OI import sensor_packet_lengths
-from .packet import SensorPacketDecoder
+# from .packet import SensorPacketDecoder
 # from OI import opcodes
+# from pycreate2.OI import opcodes
+# from pycreate2.OI import calc_query_data_len
+
+
+# class CreateMessage(object):
+# 	def __init__(self):
+# 		pass
+#
+# 	def createMessage(self, opcode, data=None):
+# 		msg = None
+#
+# 		if opcode == opcodes.PLAY:
+# 			if not data:
+# 				raise Exception("please specify song number to play")
+# 			song_num = data[0]
+# 			msg = (opcodes.PLAY, song_num,)
+# 		elif opcode == opcodes.
 
 
 class SerialCommandInterface(object):
 	"""
-	This class handles sending commands to the Create2.
+	This class handles sending commands to the Create2. Writes will take in tuples
+	and format the data to transfer to the Create.
 	"""
 
 	def __init__(self):
+		"""
+		Constructor.
+
+		Creates the serial port, but doesn't open it yet. Call open(port) to open
+		it.
+		"""
 		self.ser = serial.Serial()
-		self.decoder = SensorPacketDecoder()
+		# self.decoder = SensorPacketDecoder()
 
 	def __del__(self):
+		"""
+		Destructor.
+
+		Closes the serial port
+		"""
 		self.close()
 
-	def open(self, port='/dev/tty.usbserial-DA01NX3Z', baud=115200):
+	def open(self, port, baud=115200, timeout=1):
+		"""
+		Opens a serial port to the create.
+
+		port: the serial port to open, ie, '/dev/ttyUSB0'
+		buad: default is 115200, but can be changed to a lower rate via the create api
+		"""
 		self.ser.port = port
 		self.ser.baudrate = baud
-		self.ser.timeout = 1
+		self.ser.timeout = timeout
 		# print self.ser.name
 		if self.ser.isOpen():
 			# print "port was open"
@@ -35,13 +70,13 @@ class SerialCommandInterface(object):
 			raise Exception('Failed to open {} at {}'.format(port, baud))
 
 	def write(self, opcode, data=None):
-		# if not self.ser.isOpen():
-		# 	raise Exception('You must open the serial port first')
+		"""
+		Writes a command to the create. There needs to be an opcode and optionally
+		data. Not all commands have data associated with it.
 
-		# First thing to do is convert the opcode to a tuple.
-		# if not isinstance(opcode, tuple):
-		# 	opcode = (opcode,)
-
+		opcode: see creaet api
+		data: a tuple with data associated with a given opcode (see api)
+		"""
 		msg = (opcode,)
 
 		# Sometimes opcodes don't need data. Since we can't add
@@ -49,14 +84,7 @@ class SerialCommandInterface(object):
 		if data:
 			msg += data
 
-		print(msg)
-
 		self.ser.write(struct.pack('B' * len(msg), *msg))
-
-	# def write(self, msg):
-	# 	if not isinstance(msg, tuple):
-	# 		msg = tuple(msg)
-	# 	self.ser.write(struct.pack('B' * len(msg), *msg))
 
 	def read(self, num_bytes):
 		"""

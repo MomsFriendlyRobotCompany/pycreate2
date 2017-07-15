@@ -34,7 +34,7 @@ class SensorPacketDecoder(object):
 	A class that handles sensor packet decoding.
 
 	This class may, in the future, become a private class. Users shouldn't be interacting with
-	this class directly -- scripts should use Create2.get_packet() instead.
+	this class directly -- methods should use Create2.get_packet() instead.
 
 	"""
 

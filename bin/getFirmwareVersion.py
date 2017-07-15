@@ -4,15 +4,16 @@ from __future__ import print_function
 import pycreate2
 
 
-port = '/dev/tty.usbserial-DA01NX3Z'
+if __name__ == "__main__":
+	port = '/dev/tty.usbserial-DA01NX3Z'
 
-baud = {
-	'default': 115200,
-	'alt': 19200
-}
+	baud = {
+		'default': 115200,
+		'alt': 19200
+	}
 
-bot = pycreate2.Create2(port=port, baud=baud['default'])
+	bot = pycreate2.Create2(port=port, baud=baud['default'])
 
-bot.start()
-ret = bot.reset()
-print(ret)
+	bot.start()
+	ret = bot.reset()
+	print(ret)
