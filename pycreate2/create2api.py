@@ -105,7 +105,7 @@ class Create2(object):
 		"""
 		This doesn't seem to work
 		"""
-		self.SCI.write((opcodes.MODE))
+		self.SCI.write(opcodes.MODE)
 		time.sleep(0.005)
 		ans = self.SCI.read(1)
 		if len(ans) == 1:
@@ -166,8 +166,7 @@ class Create2(object):
 		Puts the Create 2 into Passive mode. The OI can be in Safe, or
 		Full mode to accept this command.
 		"""
-		msg = (opcodes.POWER,)
-		self.SCI.write(msg)
+		self.SCI.write(opcodes.POWER)
 		time.sleep(self.sleep_timer)
 
 	""" ------------------ Drive Commands ------------------"""
