@@ -46,11 +46,8 @@ setup(
 		'make': BuildCommand
 	},
 	scripts=[
-		'bin/getFirmwareVersion.py',
-		'bin/shutdown.py',
-		# 'bin/set_angle.py',
-		# 'bin/set_baud_rate.py',
-		# 'bin/servo_reboot.py',
-		# 'bin/servo_reset.py'
+		'bin/create_reset.py',
+		'bin/create_shutdown.py',
+		'bin/create_monitor.py'
 	]
 )
