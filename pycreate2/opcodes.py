@@ -2,6 +2,7 @@
 RESET = 7
 OI_MODE = 35
 START = 128
+# CONTROL = 130  # oi spec, p 10, this is the same as SAFE
 SAFE = 131
 FULL = 132
 POWER = 133

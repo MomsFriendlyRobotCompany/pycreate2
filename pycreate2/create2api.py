@@ -78,9 +78,10 @@ class Create2(object):
 		time.sleep(0.1)
 
 		# close it down
-		self.power()
+		# self.power()
+		# self.safe()  # this beeps every now and then, but doesn't seem to go off
 		time.sleep(0.1)
-		self.stop()  # power down
+		self.stop()  # power down, makes a low beep sound
 		time.sleep(0.1)
 		self.close()  # close serial port
 		time.sleep(0.1)
@@ -114,12 +115,24 @@ class Create2(object):
 			byte = 'Error, not mode returned'
 		print('Mode: {}'.format(byte))
 
-	# def wake(self):
-	# 	"""wake up robot."""
-	# 	self.SCI.ser.setRTS(0)
-	# 	time.sleep(0.25)
-	# 	self.SCI.ser.setRTS(1)
-	# 	time.sleep(1)  # Technically it should wake after 500ms.
+	def wake(self):
+		"""
+		Wake up robot. See OI spec, pg 7 under passive mode. This should reset
+		the 5 min timer in passive mode.
+
+		Unfortunately, if you are using the "offical" create cable ... it doesn't
+		work! They wired it wrong:
+		https://robotics.stackexchange.com/questions/7895/irobot-create-2-powering-up-after-sleep
+		"""
+		self.SCI.ser.rts = True
+		self.SCI.ser.dtr = True
+		time.sleep(1)
+		self.SCI.ser.rts = False
+		self.SCI.ser.dtr = False
+		time.sleep(1)
+		self.SCI.ser.rts = True
+		self.SCI.ser.dtr = True
+		time.sleep(1)  # Technically it should wake after 500ms.
 
 	def reset(self):
 		"""

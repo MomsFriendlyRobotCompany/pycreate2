@@ -274,7 +274,6 @@ class SensorPacketDecoder(object):
 		elif id == 45:
 			sensor_data['light bumper'] = self.decode_packet_45(byte_data.pop())
 		elif id == 46:
-
 			sensor_data['light bump left signal'] = self.decode_packet_46(byte_data.pop(), byte_data.pop())
 		elif id == 47:
 

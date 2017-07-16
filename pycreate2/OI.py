@@ -1,7 +1,7 @@
 from __future__ import print_function
 from __future__ import division
 from . import opcodes
-from .sensorPacketLengths import sensor_packet_lengths
+# from .sensorPacketLengths import sensor_packet_lengths
 
 charging_states = [
 	"not-charging",
@@ -12,11 +12,77 @@ charging_states = [
 	"charging-error"
 ]
 
+sensor_packet_lengths = {
+	0: 26,
+	1: 10,
+	2: 6,
+	3: 10,
+	4: 14,
+	5: 12,
+	6: 52,
+	7: 1,
+	8: 1,
+	9: 1,
+	10: 1,
+	11: 1,
+	12: 1,
+	13: 1,
+	14: 1,
+	15: 1,
+	16: 1,
+	17: 1,
+	18: 1,
+	19: 2,
+	20: 2,
+	21: 1,
+	22: 2,
+	23: 2,
+	24: 1,
+	25: 2,
+	26: 2,
+	27: 2,
+	28: 2,
+	29: 2,
+	30: 2,
+	31: 2,
+	32: 1,
+	33: 1,
+	34: 1,
+	35: 1,
+	36: 1,
+	37: 1,
+	38: 1,
+	39: 2,
+	40: 2,
+	41: 2,
+	42: 2,
+	43: 2,
+	44: 2,
+	45: 1,
+	46: 2,
+	47: 2,
+	48: 2,
+	49: 2,
+	50: 2,
+	51: 2,
+	52: 1,
+	53: 1,
+	54: 2,
+	55: 2,
+	56: 2,
+	57: 2,
+	58: 1,
+	100: 80,
+	101: 28,
+	102: 12,
+	103: 9
+}
+
 
 def calc_query_data_len(pkts):
 	packet_size = 0
 	for p in pkts:
-		packet_size += sensor_packet_lengths[str(p)]
+		packet_size += sensor_packet_lengths[p]
 	return packet_size
 
 
