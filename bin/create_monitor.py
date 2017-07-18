@@ -4,6 +4,7 @@ from __future__ import print_function, division
 import argparse
 import pycreate2
 import time
+from pycreate2.packet import Buttons, WheelOvercurrents, ChargingSources, LightBumper, Stasis, BumpsAndWheelDrop
 
 DESCRIPTION = """
 Prints the raw data from a Create 2. The default packet is 100 which get everything.
@@ -105,9 +106,12 @@ class Monitor(object):
 		pass
 
 	def display_raw(self, sensor):
+		sensor = sensor._asdict()
 		print('-'*70)
 		for k, v in sensor.items():
-			if dict is type(v):
+			# if dict is type(v):
+			if type(v) in [Buttons, WheelOvercurrents, ChargingSources, LightBumper, Stasis, BumpsAndWheelDrop]:
+				v = v._asdict()
 				print('{:>40} |'.format(k))
 				for kk, vv in v.items():
 					print('{:>50} : {:<5}'.format(kk, vv))
@@ -116,7 +120,7 @@ class Monitor(object):
 
 	def display_formated(self, sensor):
 		raise NotImplementedError()
-		
+
 		print('================================================')
 		print('Sensors from left to right')
 		print('------------------------------------------------')
@@ -159,8 +163,14 @@ if __name__ == '__main__':
 	# now run forever, until someone hits ctrl-C
 	try:
 		while True:
-			sensor_state = bot.inputCommands(pkt)
-			mon.display_raw(sensor_state)
-			time.sleep(dt)
+			try:
+				sensor_state = bot.inputCommands(pkt)
+				mon.display_raw(sensor_state)
+				time.sleep(dt)
+			except Exception as e:
+				print(e)
+				continue
+			except:
+				raise
 	except KeyboardInterrupt:
 		print('bye ... ')

@@ -1,99 +1,99 @@
+# The MIT License
+#
+# Copyright (c) 2017 Kevin Walchko
+# I took some of these ideas from: https://bitbucket.org/lemoneer/irobot
+
 from __future__ import print_function
 from __future__ import division
-from . import opcodes
-# from .sensorPacketLengths import sensor_packet_lengths
 
-charging_states = [
-	"not-charging",
-	"charging-recovery",
-	"charging",
-	"trickle-charging",
-	"waiting",
-	"charging-error"
-]
 
-sensor_packet_lengths = {
-	0: 26,
-	1: 10,
-	2: 6,
-	3: 10,
-	4: 14,
-	5: 12,
-	6: 52,
-	7: 1,
-	8: 1,
-	9: 1,
-	10: 1,
-	11: 1,
-	12: 1,
-	13: 1,
-	14: 1,
-	15: 1,
-	16: 1,
-	17: 1,
-	18: 1,
-	19: 2,
-	20: 2,
-	21: 1,
-	22: 2,
-	23: 2,
-	24: 1,
-	25: 2,
-	26: 2,
-	27: 2,
-	28: 2,
-	29: 2,
-	30: 2,
-	31: 2,
-	32: 1,
-	33: 1,
-	34: 1,
-	35: 1,
-	36: 1,
-	37: 1,
-	38: 1,
-	39: 2,
-	40: 2,
-	41: 2,
-	42: 2,
-	43: 2,
-	44: 2,
-	45: 1,
-	46: 2,
-	47: 2,
-	48: 2,
-	49: 2,
-	50: 2,
-	51: 2,
-	52: 1,
-	53: 1,
-	54: 2,
-	55: 2,
-	56: 2,
-	57: 2,
-	58: 1,
-	100: 80,
-	101: 28,
-	102: 12,
-	103: 9
+# could replace with:
+#   class LEDS(object): DEBRIS=0x01; SPOT=0x02; DOCK=0x04; CHECK_ROBOT=0x08
+class Namespace(object):
+	def __init__(self, **kwds):
+		self.__dict__.update(kwds)
+
+
+BAUD_RATE           = Namespace(BAUD_300=0, BAUD_600=1, BAUD_1200=2, BAUD_2400=3, BAUD_4800=4, BAUD_9600=5, BAUD_14400=6, BAUD_19200=7, BAUD_28800=8, BAUD_38400=9, BAUD_57600=10, BAUD_115200=11, DEFAULT=11)
+DAYS                = Namespace(SUNDAY=0x01, MONDAY=0x02, TUESDAY=0x04, WEDNESDAY=0x08, THURSDAY=0x10, FRIDAY=0x20, SATURDAY=0x40)
+DRIVE               = Namespace(STRAIGHT=0x8000, STRAIGHT_ALT=0x7FFF, TURN_CW=0xFFFF, TURN_CCW=0x0001)
+MOTORS              = Namespace(SIDE_BRUSH=0x01, VACUUM=0x02, MAIN_BRUSH=0x04, SIDE_BRUSH_DIRECTION=0x08, MAIN_BRUSH_DIRECTION=0x10)
+LEDS                = Namespace(DEBRIS=0x01, SPOT=0x02, DOCK=0x04, CHECK_ROBOT=0x08)
+# WEEKDAY_LEDS        = Namespace(SUNDAY=0x01, MONDAY=0x02, TUESDAY=0x04, WEDNESDAY=0x08, THURSDAY=0x10, FRIDAY=0x20, SATURDAY=0x40)
+WEEKDAY_LEDS        = DAYS
+SCHEDULING_LEDS     = Namespace(COLON=0x01, PM=0x02, AM=0x04, CLOCK=0x08, SCHEDULE=0x10)
+RAW_LED             = Namespace(A=0x01, B=0x02, C=0x04, D=0x08, E=0x10, F=0x20, G=0x40)
+BUTTONS             = Namespace(CLEAN=0x01, SPOT=0x02, DOCK=0x04, MINUTE=0x08, HOUR=0x10, DAY=0x20, SCHEDULE=0x40, CLOCK=0x80)
+ROBOT               = Namespace(TICK_PER_REV=508.8, WHEEL_DIAMETER=72, WHEEL_BASE=235, TICK_TO_DISTANCE=0.44456499814949904317867595046408)
+MODES               = Namespace(OFF=0, PASSIVE=1, SAFE=2, FULL=3)
+WHEEL_OVERCURRENT   = Namespace(SIDE_BRUSH=0x01, MAIN_BRUSH=0x02, RIGHT_WHEEL=0x04, LEFT_WHEEL=0x08)
+BUMPS_WHEEL_DROPS   = Namespace(BUMP_RIGHT=0x01, BUMP_LEFT=0x02, WHEEL_DROP_RIGHT=0x04, WHEEL_DROP_LEFT=0x08)
+CHARGE_SOURCE       = Namespace(INTERNAL=0x01, HOME_BASE=0x02)
+LIGHT_BUMPER        = Namespace(LEFT=0x01, FRONT_LEFT=0x02, CENTER_LEFT=0x04, CENTER_RIGHT=0x08, FRONT_RIGHT=0x10, RIGHT=0x20)
+STASIS              = Namespace(TOGGLING=0x01, DISABLED=0x02)
+OPCODES             = Namespace(
+	RESET=7,
+	OI_MODE=35,
+	START=128,
+	# CONTROL=130,  # oi spec, p 10, this is the same as SAFE
+	SAFE=131,
+	FULL=132,
+	POWER=133,
+	# SPOT=134,
+	# CLEAN=135,
+	# MAX=136,
+	DRIVE=137,
+	MOTORS=138,
+	LED=139,
+	SONG=140,
+	PLAY=141,
+	SENSORS=142,
+	SEEK_DOCK=143,
+	MOTORS_PWM=144,
+	DRIVE_DIRECT=145,
+	DRIVE_PWM=146,
+	# STREAM=148,
+	QUERY_LIST=149,
+	# PAUSE_RESUME_STREAM=150,
+	# SCHEDULING_LED=162,
+	# DIGIT_LED_RAW=163,  # doesn't work
+	DIGIT_LED_ASCII=164,
+	# BUTTONS=165,
+	# SCHEDULE=167,
+	# SET_DAY_TIME=168,
+	STOP=173
+)
+
+RESPONSE_SIZES = {
+	0: 26, 1: 10, 2: 6, 3: 10, 4: 14, 5: 12, 6: 52,
+	# actual sensors
+	7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1, 18: 1, 19: 2, 20: 2, 21: 1,
+	22: 2, 23: 2, 24: 1, 25: 2, 26: 2, 27: 2, 28: 2, 29: 2, 30: 2, 31: 2, 32: 3, 33: 3, 34: 1, 35: 1,
+	36: 1, 37: 1, 38: 1, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 1, 46: 2, 47: 2, 48: 2, 49: 2,
+	50: 2, 51: 2, 52: 1, 53: 1, 54: 2, 55: 2, 56: 2, 57: 2, 58: 1,
+	# end actual sensors
+	100: 80, 101: 28, 106: 12, 107: 9
 }
 
 
 def calc_query_data_len(pkts):
 	packet_size = 0
 	for p in pkts:
-		packet_size += sensor_packet_lengths[p]
+		packet_size += RESPONSE_SIZES[p]
 	return packet_size
 
 
-oi_modes = [
-	"off",
-	"passive",
-	"safe",
-	"full"
-]
+CHARGING_STATE = {
+	0: 'not charging',
+	1: 'reconditioning charging',
+	2: 'full charging',
+	3: 'trickle charging',
+	4: 'waiting',
+	5: 'charging fault condition'
+}
 
-midi_table = {
+
+MIDI_TABLE = {
 	"rest": 0,
 	"G#1": 32,
 	"G#3": 56,
@@ -196,120 +196,39 @@ midi_table = {
 	"D3": 50
 }
 
-# ascii_table = {
-# 	" ": 32,
-# 	"\"": 34,
-# 	"&": 38,
-# 	",": 44,
-# 	".": 46,
-# 	"0": 48,
-# 	"2": 50,
-# 	"4": 52,
-# 	"6": 54,
-# 	"8": 56,
-# 	":": 58,
-# 	"<": 60,
-# 	">": 62,
-# 	"B": 66,
-# 	"D": 68,
-# 	"F": 70,
-# 	"H": 72,
-# 	"J": 74,
-# 	"L": 76,
-# 	"N": 78,
-# 	"P": 80,
-# 	"R": 82,
-# 	"T": 84,
-# 	"V": 86,
-# 	"X": 88,
-# 	"Z": 90,
-# 	"\\": 92,
-# 	"^": 94,
-# 	"`": 96,
-# 	"|": 124,
-# 	"~": 126,
-# 	"!": 33,
-# 	"#": 35,
-# 	"%": 37,
-# 	"'": 39,
-# 	"-": 45,
-# 	"/": 47,
-# 	"1": 49,
-# 	"3": 51,
-# 	"5": 53,
-# 	"7": 55,
-# 	"9": 57,
-# 	";": 59,
-# 	"=": 61,
-# 	"?": 63,
-# 	"A": 65,
-# 	"C": 67,
-# 	"E": 69,
-# 	"G": 71,
-# 	"I": 73,
-# 	"K": 75,
-# 	"M": 77,
-# 	"O": 79,
-# 	"Q": 81,
-# 	"S": 83,
-# 	"U": 85,
-# 	"W": 87,
-# 	"Y": 89,
-# 	"[": 40,
-# 	"]": 41,
-# 	"_": 95,
-# 	"{": 123,
-# 	"}": 125
-# }
-
-baudrates = {
-	300: 0,
-	600: 1,
-	1200: 2,
-	2400: 3,
-	4800: 4,
-	9600: 5,
-	14400: 6,
-	19200: 7,
-	28800: 8,
-	38400: 9,
-	57600: 10,
-	115200: 11
-}
-
-remote_opcodes = {
-	"0": "none",
-	"129": "left",
-	"130": "forward",
-	"131": "right",
-	"132": "spot",
-	"133": "max",
-	"134": "small",
-	"135": "medium",
-	"136": "clean",
-	"137": "pause",
-	"138": "power",
-	"139": "arc-left",
-	"140": "arc-right",
-	"141": "drive-stop",
-	"142": "send-all",
-	"143": "seek-dock",
-	"160": "reserved",
-	"161": "force-field",
-	"162": "virtual-wall",
-	"164": "green-buoy",
-	"165": "green-buoy-and-force-field",
-	"168": "red-buoy",
-	"169": "red-buoy-and-force-field",
-	"172": "red-buoy-and-green-buoy",
-	"173": "red-buoy-and-green-buoy-and-force-field",
-	"240": "reserved",
-	"242": "force-field",
-	"244": "green-buoy",
-	"246": "green-buoy-and-force-field",
-	"248": "red-buoy",
-	"250": "red-buoy-and-force-field",
-	"252": "red-buoy-and-green-buoy",
-	"254": "red-buoy-and-green-buoy-and-force-field",
-	"255": "none"
+REMOTE_OPCODES = {
+	0: "none",
+	129: "left",
+	130: "forward",
+	131: "right",
+	132: "spot",
+	133: "max",
+	134: "small",
+	135: "medium",
+	136: "clean",
+	137: "pause",
+	138: "power",
+	139: "arc-left",
+	140: "arc-right",
+	141: "drive-stop",
+	142: "send-all",
+	143: "seek-dock",
+	160: "reserved",
+	161: "force-field",
+	162: "virtual-wall",
+	164: "green-buoy",
+	165: "green-buoy-and-force-field",
+	168: "red-buoy",
+	169: "red-buoy-and-force-field",
+	172: "red-buoy-and-green-buoy",
+	173: "red-buoy-and-green-buoy-and-force-field",
+	240: "reserved",
+	242: "force-field",
+	244: "green-buoy",
+	246: "green-buoy-and-force-field",
+	248: "red-buoy",
+	250: "red-buoy-and-force-field",
+	252: "red-buoy-and-green-buoy",
+	254: "red-buoy-and-green-buoy-and-force-field",
+	255: "none"
 }
