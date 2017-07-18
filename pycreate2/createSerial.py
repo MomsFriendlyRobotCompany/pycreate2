@@ -1,28 +1,13 @@
+# The MIT License
+#
+# Copyright (c) 2017 Kevin Walchko
+#
+# This is basically the interface between the Create2 and pyserial
+
 from __future__ import print_function
 from __future__ import division
 import serial
 import struct
-# import time
-# from OI import sensor_packet_lengths
-# from .packet import SensorPacketDecoder
-# from OI import opcodes
-# from pycreate2.OI import opcodes
-# from pycreate2.OI import calc_query_data_len
-
-
-# class CreateMessage(object):
-# 	def __init__(self):
-# 		pass
-#
-# 	def createMessage(self, opcode, data=None):
-# 		msg = None
-#
-# 		if opcode == opcodes.PLAY:
-# 			if not data:
-# 				raise Exception("please specify song number to play")
-# 			song_num = data[0]
-# 			msg = (opcodes.PLAY, song_num,)
-# 		elif opcode == opcodes.
 
 
 class SerialCommandInterface(object):
@@ -39,7 +24,6 @@ class SerialCommandInterface(object):
 		it.
 		"""
 		self.ser = serial.Serial()
-		# self.decoder = SensorPacketDecoder()
 
 	def __del__(self):
 		"""
@@ -65,7 +49,12 @@ class SerialCommandInterface(object):
 			self.ser.close()
 		self.ser.open()
 		if self.ser.is_open:
-			print("Create opened serial: {}".format(self.ser))
+			# print("Create opened serial: {}".format(self.ser))
+			print('-'*40)
+			print(' Create opened serial connection')
+			print('   port: {}'.format(self.ser.port))
+			print('   datarate: {} bps'.format(self.ser.baudrate))
+			print('-'*40)
 		else:
 			raise Exception('Failed to open {} at {}'.format(port, baud))
 

@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
 	while True:
 		# Packet 100 contains all sensor data.
-		sensor_state = bot.inputCommands([100])
+		sensor_state = bot.inputCommands()
 
 		print('==============Updated Sensors==============')
 		print(sensor_state)
