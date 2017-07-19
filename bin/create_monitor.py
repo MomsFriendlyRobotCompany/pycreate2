@@ -4,7 +4,7 @@ from __future__ import print_function, division
 import argparse
 import pycreate2
 import time
-from pycreate2.packet import Buttons, WheelOvercurrents, ChargingSources, LightBumper, Stasis, BumpsAndWheelDrop
+from pycreate2.packets import Buttons, WheelOvercurrents, ChargingSources, LightBumper, Stasis, BumpsAndWheelDrop
 
 DESCRIPTION = """
 Prints the raw data from a Create 2. The default packet is 100 which get everything.

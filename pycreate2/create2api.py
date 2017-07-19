@@ -346,9 +346,12 @@ class Create2(object):
 		pkts: an array of packets to read.
 		return: a hash of the roomba's sensors/variables requeted
 
-		WARNING: now this only returns pkt 100, everything
+		WARNING: now this only returns pkt 100, everything. And it is the default
+				packet reques now.
 		"""
-		pkts = [100]
+		if not pkts:
+			pkts = [100]
+
 		length = len(pkts)
 		sensor_pkt_len = calc_query_data_len(pkts)
 
@@ -375,6 +378,7 @@ class Create2(object):
 		# 	for p in pkts:
 		# 		self.decoder.decode_packet(p, packet_byte_data, sensors)
 
-		sensors = SensorPacketDecoder(packet_byte_data)
+		if pkts[0] == 100:
+			sensors = SensorPacketDecoder(packet_byte_data)
 
 		return sensors
