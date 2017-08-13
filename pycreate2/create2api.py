@@ -168,10 +168,10 @@ class Create2(object):
 	""" ------------------ Drive Commands ------------------"""
 
 	def drive_stop(self):
-		self._drive(0, 0)
+		self.drive_straight(0, 0)
 		time.sleep(self.sleep_timer)  # wait just a little for the robot to stop
 
-	def drive_rotate(self, velocity, direction=1):
+	def drive_rotate(self, velocity, direction):
 		"""
 		Turn in place clockwise: -1 CW
 		Turn in place counterclockwise: 1 CCW
@@ -180,18 +180,24 @@ class Create2(object):
 			pass
 		else:
 			raise Exception('Create2::drive_rotate() invalid direction:', direction)
-			# direction = self.CCW
 
-		self.drive(velocity, direction)
+		v = self.limit(velocity, -500, 500)
+		print('drive_rotate: {} {}'.format(v, direction))
+		data = struct.unpack('4B', struct.pack('>2h', v, direction))
+		self.SCI.write(OPCODES.DRIVE, data)
 
-	def drive_turn(self, velocity, radius=1000):
+	def drive_turn(self, velocity, radius):
 		"""
 		The create will turn
 
-		velocity: speed in mm/s
-		radius: radius of the turn in mm
+		velocity: [-500,500] speed in mm/s
+		radius: [-2000,2000] radius of the turn in mm
 		"""
-		self._drive(velocity, radius)
+		v = self.limit(velocity, -500, 500)
+		r = self.limit(radius, -2000, 2000)
+		print('drive_turn: {} {}'.format(v, r))
+		data = struct.unpack('4B', struct.pack('>2h', v, r))
+		self.SCI.write(OPCODES.DRIVE, data)
 
 	def drive_straight(self, velocity):
 		"""
@@ -202,47 +208,34 @@ class Create2(object):
 				negative velocities are reverse. Max speeds are still enforced by drive()
 
 		"""
-		self._drive(velocity, DRIVE.STRAIGHT)
-
-	def _drive(self, velocity, radius):
-		"""
-		Controls the Create 2's drive wheels.
-
-		Args:
-			velocity: A number between -500 and 500. Units are mm/s.
-			radius: A number between -2000 and 2000. Units are mm.
-				Drive straight: 32767
-				Turn in place clockwise: -1
-				Turn in place counterclockwise: 1
-		"""
-		v = None
-		r = None
-
-		# Check to make sure we are getting sent valid velocity/radius.
-		if -500 <= velocity <= 500:
-			v = int(velocity) & 0xffff
-			# Convert 16bit velocity to Hex
-		else:
-			# noError = False
-			raise Exception("Invalid velocity input: {}".format(velocity))
-
-		# Special case radius
-		# if radius == 32767 or radius == -1 or radius == 1:
-		if radius in [-1, 1, DRIVE.STRAIGHT]:
-			# Convert 16bit radius to Hex
-			r = int(radius) & 0xffff
-
-		# elif radius >= -2000 and radius <= 2000:
-		elif -2000 <= radius <= 2000:
-			# Convert 16bit radius to Hex
-			r = int(radius) & 0xffff
-
-		else:
-			# noError = False
-			raise Exception("Invalid radius input: {}".format(radius))
-
-		data = struct.unpack('4B', struct.pack('>2H', v, r))  # write do this?
+		v = self.limit(velocity, -500, 500)
+		print('drive_straight: {}'.format(v))
+		data = struct.unpack('4B', struct.pack('>hH', v, DRIVE.STRAIGHT))  # write do this?
 		self.SCI.write(OPCODES.DRIVE, data)
+
+	def limit(self, val, low, hi):
+		val = val if val < hi else hi
+		val = val if val > low else low
+		return val
+
+	def directDrive(self, r_vel, l_vel):
+		"""
+		Drive motors directly: [-500, 500] mm/sec
+		"""
+		r_vel = self.limit(r_vel, -500, 500)
+		l_vel = self.limit(l_vel, -500, 500)
+		data = struct.unpack('4B', struct.pack('>2h', r_vel, l_vel))  # write do this?
+		self.SCI.write(OPCODES.DRIVE_DIRECT, data)
+
+	def directPWM(self, r_pwm, l_pwm):
+		"""
+		Drive motors PWM directly: [-255, 255] PWM
+		"""
+		r_pwm = self.limit(r_pwm, -255, 255)
+		l_pwm = self.limit(l_pwm, -255, 255)
+		data = struct.unpack('4B', struct.pack('>2h', r_pwm, l_pwm))  # write do this?
+		self.SCI.write(OPCODES.DRIVE_PWM, data)
+
 
 	"""------------------------ LED ---------------------------- """
 
