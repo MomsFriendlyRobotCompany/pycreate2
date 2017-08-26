@@ -17,8 +17,6 @@ pyCreate2
 
 A python library for controlling the `iRobot Create 2 <http://www.irobot.com/About-iRobot/STEM/Create-2.aspx>`_.
 
-**Still a work in progress**
-
 Install
 ------------
 
@@ -63,6 +61,10 @@ Use
 	# Put the Create2 into 'safe' mode so we can drive it
 	# This will still provide some protection
 	bot.safe()
+	
+	# You are responsible for handling issues, no protection/safety in
+	# this mode ... becareful
+	bot.full()
 
 	# Tell the Create2 to drive straight forward at a speed of 100 mm/s
 	bot.drive_straight(100)
@@ -83,13 +85,17 @@ Use
 	# Turn in place
 	bot.drive_turn(100, 0)
 	time.sleep(2)
+	
+	# use the simpler drive direct
+	bot.drive_direct(200,-200)  # inputs for motors are +/- 500 max
+	time.sleep(2)
 
 	# Stop the bot
 	bot.drive_stop()
 
 	# query some sensors
-	sensor_pkts = [46, 47, 48, 49, 50, 51]  # ir bump sensors
-	ir = bot.query_list(sensor_pkts, 12)
+	sensors = bot.get_sensors()  # returns all data
+	print(sensors.light_bumper_left)
 
 	# Close the connection
 	# bot.close()
@@ -118,42 +124,71 @@ commands.
 Sensor Data
 ~~~~~~~~~~~~~
 
-Here are some of the more useful sensor packets.
+Sensor data is returned as a ``namedtuple`` from ``collections``. The information can be
+accessed as either::
 
-================ =============== =================
-Sensor           Range           Packet Numbers
-================ =============== =================
-ir bumper        [0-127]         45
-ir bumper        [0-4095]        46-51
-encoder          [-322768-32767] 43,44
-current          [-322768-32767] 23
-voltage          [0-65535]       22
-motor current    [-322768-32767] 54,55
-battery charge   [0-65535]       25
-battery capacity [0-65535]       26 (doesn't change?)
-cliff            [0-1]           9-12
-cliff signal     [0-4095]        28-31
-overcurrents     [0-29]          14
-bump wheeldrops  [0-15]          7
-================ =============== =================
+	sensors = bot.get_sensors()
+	sensors.wall == sensors[1]  # True
 
-You can call these individually with ``get_packet()`` or several of them using ``query_list()``.
-
-To Do
-------
-
-- Figure out how to handle senors better
-- Most people follow iRobots insane naming convention (there might some thought behind it, but I don't see it), maybe break from it and replace with some common sense
-- Still working out the syntax, need to make more examples
-- Need to write some tests for python 2 and 3
-- Need to setup static code analysis
-- Need to setup travis.ci ... but need tests to run :)
-- Need a monitoring window to show sensor values/states
+=========================== =============== =================
+Sensor                      Range           Index
+=========================== =============== =================
+bumps_wheeldrops            [0-15]           0
+wall                        [0-1]            1
+cliff_left                  [0-1]            2
+cliff_front_left            [0-1]            3
+cliff_front_right           [0-1]            4
+cliff_right                 [0-1]            5
+virtual_wall                [0-1]            6
+overcurrents                [0-29]           7
+dirt_detect                 [0-255]          8
+ir_opcode                   [0-255]          9
+buttons                     [0-255]          10
+distance                    [-322768-32767]  11
+angle                       [-322768-32767]  12
+charger_state               [0-6]            13
+voltage                     [0-65535]        14
+current                     [-322768-32767]  15
+temperature                 [-128-127]       16
+battery_charge              [0-65535]        17
+battery_capacity            [0-65535]        18
+wall_signal                 [0-1023]         19
+cliff_left_signal           [0-4095]         20
+cliff_front_left_signal     [0-4095]         21
+cliff_front_right_signal    [0-4095]         22
+cliff_right_signal          [0-4095]         23
+charger_available           [0-3]            24
+open_interface_mode         [0-3]            25
+song_number                 [0-4]            26
+song_playing                [0-1]            27
+oi_stream_num_packets       [0-108]          28
+velocity                    [-500-500]       29
+radius                      [-322768-32767]  30
+velocity_right              [-500-500]       31
+velocity_left               [-500-500]       32
+encoder_counts_left         [-322768-32767]  33
+encoder_counts_right        [-322768-32767]  34
+light_bumper                [0-127]          35
+light_bumper_left           [0-4095]         36
+light_bumper_front_left     [0-4095]         37
+light_bumper_center_left    [0-4095]         38
+light_bumper_center_right   [0-4095]         39
+light_bumper_front_right    [0-4095]         40
+light_bumper_right          [0-4095]         41
+ir_opcode_left              [0-255]          42
+ir_opcode_right             [0-255]          43
+left_motor_current          [-322768-32767]  44
+right_motor_current         [-322768-32767]  45
+main_brush_current          [-322768-32767]  46
+side_brush_current          [-322768-32767]  47
+statis                      [0-3]            48
+=========================== =============== =================
 
 Change Log
 ---------------
 
 ========== ======= =============================
+2017-08-26 0.7.2   updates and fixes
 2017-05-26 0.5.0   init and published to pypi
 ========== ======= =============================
 
