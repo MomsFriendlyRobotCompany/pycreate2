@@ -75,7 +75,8 @@ class Create2(object):
 		"""
 		self.SCI.close()
 
-	"""------------------- Mode Control ------------------------"""
+	# ------------------- Mode Control ------------------------
+
 	def start(self):
 		"""
 		Puts the Create 2 into Passive mode. You must always send the Start command
@@ -165,10 +166,10 @@ class Create2(object):
 		self.SCI.write(OPCODES.POWER)
 		time.sleep(self.sleep_timer)
 
-	""" ------------------ Drive Commands ------------------"""
+	# ------------------ Drive Commands ------------------
 
 	def drive_stop(self):
-		self.drive_straight(0, 0)
+		self.drive_straight(0)
 		time.sleep(self.sleep_timer)  # wait just a little for the robot to stop
 
 	def drive_rotate(self, velocity, direction):
@@ -182,7 +183,7 @@ class Create2(object):
 			raise Exception('Create2::drive_rotate() invalid direction:', direction)
 
 		v = self.limit(velocity, -500, 500)
-		print('drive_rotate: {} {}'.format(v, direction))
+		# print('drive_rotate: {} {}'.format(v, direction))
 		data = struct.unpack('4B', struct.pack('>2h', v, direction))
 		self.SCI.write(OPCODES.DRIVE, data)
 
@@ -195,7 +196,7 @@ class Create2(object):
 		"""
 		v = self.limit(velocity, -500, 500)
 		r = self.limit(radius, -2000, 2000)
-		print('drive_turn: {} {}'.format(v, r))
+		# print('drive_turn: {} {}'.format(v, r))
 		data = struct.unpack('4B', struct.pack('>2h', v, r))
 		self.SCI.write(OPCODES.DRIVE, data)
 
@@ -209,7 +210,7 @@ class Create2(object):
 
 		"""
 		v = self.limit(velocity, -500, 500)
-		print('drive_straight: {}'.format(v))
+		# print('drive_straight: {}'.format(v))
 		data = struct.unpack('4B', struct.pack('>hH', v, DRIVE.STRAIGHT))  # write do this?
 		self.SCI.write(OPCODES.DRIVE, data)
 
@@ -236,8 +237,7 @@ class Create2(object):
 		data = struct.unpack('4B', struct.pack('>2h', r_pwm, l_pwm))  # write do this?
 		self.SCI.write(OPCODES.DRIVE_PWM, data)
 
-
-	"""------------------------ LED ---------------------------- """
+	# ------------------------ LED ----------------------------
 
 	def led(self, led_bits=0, power_color=0, power_intensity=0):
 		"""
@@ -286,7 +286,7 @@ class Create2(object):
 
 		self.SCI.write(OPCODES.DIGIT_LED_ASCII, tuple(display_list))
 
-	"""------------------------ Songs ---------------------------- """
+	# ------------------------ Songs ----------------------------
 
 	def createSong(self, song_num, notes):
 		"""
@@ -333,7 +333,8 @@ class Create2(object):
 
 		self.SCI.write(OPCODES.PLAY, (song_num,))
 
-	"""------------------------ Sensors ---------------------------- """
+	# ------------------------ Sensors ----------------------------
+
 	def inputCommands(self, pkts=None):
 		"""
 		pkts: an array of packets to read.
