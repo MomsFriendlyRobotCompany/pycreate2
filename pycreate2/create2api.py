@@ -219,7 +219,7 @@ class Create2(object):
 		val = val if val > low else low
 		return val
 
-	def directDrive(self, r_vel, l_vel):
+	def drive_direct(self, r_vel, l_vel):
 		"""
 		Drive motors directly: [-500, 500] mm/sec
 		"""
@@ -228,7 +228,7 @@ class Create2(object):
 		data = struct.unpack('4B', struct.pack('>2h', r_vel, l_vel))  # write do this?
 		self.SCI.write(OPCODES.DRIVE_DIRECT, data)
 
-	def directPWM(self, r_pwm, l_pwm):
+	def drive_pwm(self, r_pwm, l_pwm):
 		"""
 		Drive motors PWM directly: [-255, 255] PWM
 		"""
@@ -335,7 +335,7 @@ class Create2(object):
 
 	# ------------------------ Sensors ----------------------------
 
-	def inputCommands(self, pkts=None):
+	def get_sensors(self, pkts=None):
 		"""
 		pkts: an array of packets to read.
 		return: a hash of the roomba's sensors/variables requeted
