@@ -240,7 +240,7 @@ class Create2(object):
 	def turn_angle(self, angle, speed=100):
 		"""
 		Uses the encoders to turn an angle in degrees. This is a best effort,
-		the results will not be perfect due to wheel sleep and encoder errors.
+		the results will not be perfect due to wheel slip and encoder errors.
 
 		CCW is positive
 		CW is negative
@@ -257,6 +257,24 @@ class Create2(object):
 			self.drive_direct(*cmd)
 			sensors = self.get_sensors()
 			turn_angle += sensors.angle  # roomba only tracks the delta angle
+
+	def drive_distance(self, distance, speed=100):
+		"""
+		Uses the encoders to drive straight forward or backwards. This is a best effort,
+		the results will not be perfect due to wheel slip and encoder errors.
+		"""
+		mov = 0.0
+
+		if distance > 0:
+			cmd = (speed, speed)  # R, L
+		else:
+			cmd = (-speed, -speed)
+			distance = -distance
+
+		while abs(mov) < distance:
+			self.drive_direct(*cmd)
+			sensors = self.get_sensors()
+			mov += sensors.distance/1000  # roomba only tracks the delta distance
 
 	# ------------------------ LED ----------------------------
 
