@@ -237,6 +237,27 @@ class Create2(object):
 		data = struct.unpack('4B', struct.pack('>2h', r_pwm, l_pwm))  # write do this?
 		self.SCI.write(OPCODES.DRIVE_PWM, data)
 
+	def turn_angle(self, angle, speed=100):
+		"""
+		Uses the encoders to turn an angle in degrees. This is a best effort,
+		the results will not be perfect due to wheel sleep and encoder errors.
+
+		CCW is positive
+		CW is negative
+		"""
+		turn_angle = 0.0
+
+		if angle > 0:
+			cmd = (speed, -speed)  # R, L
+		else:
+			cmd = (-speed, speed)
+			angle = -angle
+
+		while abs(turn_angle) < angle:
+			self.drive_direct(*cmd)
+			sensors = self.get_sensors()
+			turn_angle += sensors.angle  # roomba only tracks the delta angle
+
 	# ------------------------ LED ----------------------------
 
 	def led(self, led_bits=0, power_color=0, power_intensity=0):
@@ -263,26 +284,14 @@ class Create2(object):
 				Create 2's display. C'est la vie. Any Create non-printable character
 				will be replaced with a space ' '.
 		"""
-		display_string = display_string[:4]
-		display_string = display_string.upper()
-		display_list = []
-
-		length = len(display_string)
-		if length < 4:
-			l = length
-			while l < 4:
-				display_string += ' '
-				l += 1
-
-		# Need to map ascii to numbers from the dict.
-		for char in display_string:
-			# Check that the character is in the list, if it is, add it.
-			val = ord(char)
+		display_list = [' ']*4
+		for i, c in enumerate(display_string[:4]):
+			val = ord(c.upper())
 			if 32 <= val <= 126:
-				display_list.append(val)
+				display_list[i] = val
 			else:
 				# Char was not available. Just print a blank space
-				val = ' '
+				display_list[i] = ' '
 
 		self.SCI.write(OPCODES.DIGIT_LED_ASCII, tuple(display_list))
 
