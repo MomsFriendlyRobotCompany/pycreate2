@@ -44,7 +44,7 @@ class SerialCommandInterface(object):
 		self.ser.baudrate = baud
 		self.ser.timeout = timeout
 		# print self.ser.name
-		if self.ser.isOpen():
+		if self.ser.is_open:
 			# print "port was open"
 			self.ser.close()
 		self.ser.open()
@@ -93,6 +93,6 @@ class SerialCommandInterface(object):
 		"""
 		Closes the serial connection.
 		"""
-		if self.ser.isOpen():
+		if self.ser.is_open:
 			print('Closing port {} @ {}'.format(self.ser.port, self.ser.baudrate))
 			self.ser.close()
