@@ -9,6 +9,7 @@
 
 from __future__ import print_function
 from __future__ import division
+import array
 import struct  # there are 2 places that use this ... why?
 import time
 from pycreate2.packets import SensorPacketDecoder
@@ -385,9 +386,9 @@ class Create2(object):
 
 		self.SCI.write(opcode, cmd)
 		time.sleep(0.015)  # wait 15 msec
-		packet_byte_data = list(self.SCI.read(sensor_pkt_len))
 
-		packet_byte_data = ''.join(packet_byte_data)  # FIXME: is this what i want? was an array, now a str
+		packet_byte_data = list(self.SCI.read(sensor_pkt_len))
+		packet_byte_data = array.array('B', packet_byte_data).tostring()
 
 		# print('-'*60)
 		# print('returned data len({})'.format(len(packet_byte_data)))
