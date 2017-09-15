@@ -258,7 +258,7 @@ class Create2(object):
 			sensors = self.get_sensors()
 			turn_angle += sensors.angle  # roomba only tracks the delta angle
 
-	def drive_distance(self, distance, speed=100):
+	def drive_distance(self, distance, speed=100, stop=False):
 		"""
 		Uses the encoders to drive straight forward or backwards. This is a best effort,
 		the results will not be perfect due to wheel slip and encoder errors.
@@ -275,6 +275,9 @@ class Create2(object):
 			self.drive_direct(*cmd)
 			sensors = self.get_sensors()
 			mov += sensors.distance/1000  # roomba only tracks the delta distance
+			
+		if stop:
+			self.drive_stop()
 
 	# ------------------------ LED ----------------------------
 
@@ -362,26 +365,27 @@ class Create2(object):
 
 	# ------------------------ Sensors ----------------------------
 
-	def get_sensors(self, pkts=None):
+	def get_sensors(self):
 		"""
-		pkts: an array of packets to read.
-		return: a hash of the roomba's sensors/variables requeted
+		return: a namedtuple
 
 		WARNING: now this only returns pkt 100, everything. And it is the default
-				packet reques now.
+			packet reques now.
 		"""
-		if not pkts:
-			pkts = [100]
+# 		pkts = [100]
+# 		length = len(pkts)
+# 		sensor_pkt_len = calc_query_data_len(pkts)
 
-		length = len(pkts)
-		sensor_pkt_len = calc_query_data_len(pkts)
-
-		if length == 1:
-			opcode = OPCODES.SENSORS
-			cmd = tuple(pkts)
-		else:
-			opcode = OPCODES.QUERY_LIST
-			cmd = (len(pkts),)+tuple(pkts)
+# 		if length == 1:
+# 			opcode = OPCODES.SENSORS
+# 			cmd = tuple(pkts)
+# 		else:
+# 			opcode = OPCODES.QUERY_LIST
+# 			cmd = (len(pkts),)+tuple(pkts)
+		
+		opcode = OPCODES.SENSORS
+		cmd = (100,)
+		sensor_pkt_len = 80
 
 		self.SCI.write(opcode, cmd)
 		time.sleep(0.015)  # wait 15 msec
@@ -399,7 +403,7 @@ class Create2(object):
 		# 	for p in pkts:
 		# 		self.decoder.decode_packet(p, packet_byte_data, sensors)
 
-		if pkts[0] == 100:
-			sensors = SensorPacketDecoder(packet_byte_data)
+# 		if pkts[0] == 100:
+		sensors = SensorPacketDecoder(packet_byte_data)
 
 		return sensors
