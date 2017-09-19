@@ -14,7 +14,7 @@ import time
 from pycreate2.packets import SensorPacketDecoder
 from pycreate2.createSerial import SerialCommandInterface
 from pycreate2.OI import OPCODES
-from pycreate2.OI import calc_query_data_len
+# from pycreate2.OI import calc_query_data_len
 from pycreate2.OI import DRIVE
 
 
@@ -262,6 +262,8 @@ class Create2(object):
 		"""
 		Uses the encoders to drive straight forward or backwards. This is a best effort,
 		the results will not be perfect due to wheel slip and encoder errors.
+			distance: meters
+			speed: mm/sec, positive is forward, negative is backwards
 		"""
 		mov = 0.0
 
@@ -275,7 +277,7 @@ class Create2(object):
 			self.drive_direct(*cmd)
 			sensors = self.get_sensors()
 			mov += sensors.distance/1000  # roomba only tracks the delta distance
-			
+
 		if stop:
 			self.drive_stop()
 
@@ -372,38 +374,14 @@ class Create2(object):
 		WARNING: now this only returns pkt 100, everything. And it is the default
 			packet reques now.
 		"""
-# 		pkts = [100]
-# 		length = len(pkts)
-# 		sensor_pkt_len = calc_query_data_len(pkts)
 
-# 		if length == 1:
-# 			opcode = OPCODES.SENSORS
-# 			cmd = tuple(pkts)
-# 		else:
-# 			opcode = OPCODES.QUERY_LIST
-# 			cmd = (len(pkts),)+tuple(pkts)
-		
 		opcode = OPCODES.SENSORS
 		cmd = (100,)
 		sensor_pkt_len = 80
 
 		self.SCI.write(opcode, cmd)
 		time.sleep(0.015)  # wait 15 msec
-		packet_byte_data = list(self.SCI.read(sensor_pkt_len))
-
-		packet_byte_data = ''.join(packet_byte_data)  # FIXME: is this what i want? was an array, now a str
-
-		# print('-'*60)
-		# print('returned data len({})'.format(len(packet_byte_data)))
-		# print('type:', type(packet_byte_data))
-		# print(packet_byte_data)
-
-		# if data was returned, then decode it
-		# if packet_byte_data:
-		# 	for p in pkts:
-		# 		self.decoder.decode_packet(p, packet_byte_data, sensors)
-
-# 		if pkts[0] == 100:
+		packet_byte_data = self.SCI.read(sensor_pkt_len)
 		sensors = SensorPacketDecoder(packet_byte_data)
 
 		return sensors

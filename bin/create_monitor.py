@@ -94,7 +94,7 @@ def handleArgs():
 	parser = argparse.ArgumentParser(description=DESCRIPTION, formatter_class=argparse.RawTextHelpFormatter)
 	# parser.add_argument('-m', '--max', help='max id', type=int, default=253)
 	parser.add_argument('-s', '--sleep', help='time in seconds between samples, default 1.0', type=float, default=1.0)
-	parser.add_argument('-i', '--id', help='packet ID, default is 100', type=int, default=100)
+	# parser.add_argument('-i', '--id', help='packet ID, default is 100', type=int, default=100)
 	parser.add_argument('port', help='serial port name, Ex: /dev/ttyUSB0 or COM1', type=str)
 
 	args = vars(parser.parse_args())
@@ -149,7 +149,6 @@ if __name__ == '__main__':
 	# get command line args
 	args = handleArgs()
 	port = args['port']
-	pkt = [args['id']]
 	dt = args['sleep']
 
 	# create print monitor
@@ -164,7 +163,7 @@ if __name__ == '__main__':
 	try:
 		while True:
 			try:
-				sensor_state = bot.inputCommands(pkt)
+				sensor_state = bot.get_sensors()
 				mon.display_raw(sensor_state)
 				time.sleep(dt)
 			except Exception as e:
