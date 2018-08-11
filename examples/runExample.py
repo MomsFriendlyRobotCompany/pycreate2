@@ -39,7 +39,7 @@ if __name__ == "__main__":
 		print(name)
 		bot.digit_led_ascii(string)
 		if name in ['forward', 'back', 'stop']:
-			bot.drive_stright(vel)
+			bot.drive_straight(vel)
 			time.sleep(dt)
 		elif name in ['turn right', 'turn left']:
 			bot.drive_turn(vel, -1)
