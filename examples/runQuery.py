@@ -12,7 +12,7 @@ def prettyPrint(sensors):
 	print('-'*70)
 	print('{:>40} | {:<5}'.format('Sensor', 'Value'))
 	print('-'*70)
-	for k, v in sensors.items():
+	for k, v in sensors.__dict__.items():
 		print('{:>40} | {:<5}'.format(k, v))
 
 
@@ -34,11 +34,9 @@ if __name__ == "__main__":
 
 	sensors = {}
 
-	pkts = [46, 47, 48, 49, 50, 51]
-
 	try:
 		while True:
-			sensors = bot.inputCommands(pkts)
+			sensors = bot.get_sensors()
 			if sensors:
 				prettyPrint(sensors)
 			else:
