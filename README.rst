@@ -75,7 +75,7 @@ There are multiple ways to command the Create to move, here are some examples:
 	bot.turn_angle(45, 100)
 
 	# drive straight for a distance: 5 meters, reverse 100 mm/sec
-	drive_distance(5, -100)
+	bot.drive_distance(5, -100)
 
 	# Tell the Create2 to drive straight forward at a speed of 100 mm/s
 	bot.drive_straight(100)
