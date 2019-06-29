@@ -6,12 +6,13 @@
 
 from __future__ import print_function
 from setuptools import setup
-from pycreate2.version import __version__ as VERSION
+# from pycreate2.version import __version__ as VERSION
+from build_utils import get_pkg_version
 from build_utils import BuildCommand
 from build_utils import PublishCommand
 from build_utils import BinaryDistribution
 
-
+VERSION = get_pkg_version('pycreate2/__init__.py')
 PACKAGE_NAME = 'pycreate2'
 BuildCommand.pkg = PACKAGE_NAME
 PublishCommand.pkg = PACKAGE_NAME
