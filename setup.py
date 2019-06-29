@@ -12,7 +12,7 @@ from build_utils import BuildCommand
 from build_utils import PublishCommand
 from build_utils import BinaryDistribution
 
-VERSION = get_pkg_version('pycreate2/__init__.py')
+VERSION = get_pkg_version('pycreate2/version.py')
 PACKAGE_NAME = 'pycreate2'
 BuildCommand.pkg = PACKAGE_NAME
 PublishCommand.pkg = PACKAGE_NAME
