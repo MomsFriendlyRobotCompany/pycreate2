@@ -12,21 +12,21 @@ import random
 
 
 if __name__ == "__main__":
-	# Create a Create2 Bot
-	port = '/dev/tty.usbserial-DA01NX3Z'
+    # Create a Create2 Bot
+    port = '/dev/tty.usbserial-DA01NX3Z'
 
-	# setup create 2
-	bot = pycreate2.Create2(port)
-	bot.start()
-	bot.safe()
+    # setup create 2
+    bot = pycreate2.Create2(port)
+    bot.start()
+    bot.safe()
 
-	# get the set of all printable ascii characters
-	char_set = string.printable
+    # get the set of all printable ascii characters
+    char_set = string.printable
 
-	print('WARNING: Not all of the allowed printable characters really look good on the LCD')
+    print('WARNING: Not all of the allowed printable characters really look good on the LCD')
 
-	while True:
-		word = ''.join(random.sample(char_set, 4))
-		print('phrase:', word)
-		bot.digit_led_ascii(word)
-		time.sleep(2)
+    while True:
+        word = ''.join(random.sample(char_set, 4))
+        print('phrase:', word)
+        bot.digit_led_ascii(word)
+        time.sleep(2)
