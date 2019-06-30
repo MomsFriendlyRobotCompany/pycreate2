@@ -9,7 +9,7 @@ python:
 # install other libraries using pip
 install:
     - pip install -U pip setuptools wheel
-    - pip install -U -r pyserial simplejson build_utils
+    - pip install -U pyserial simplejson build_utils
     - pip install .
     - pip list
 
