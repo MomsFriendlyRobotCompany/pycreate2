@@ -72,7 +72,7 @@ class SerialCommandInterface(object):
         # a None type to a tuple, we have to make this check.
         if data:
             msg += data
-        print(">> write:", msg)
+        # print(">> write:", msg)
         self.ser.write(struct.pack('B' * len(msg), *msg))
 
     def read(self, num_bytes):
