@@ -7,7 +7,8 @@ from __future__ import division
 from .create2api import Create2
 # from .create2api import Fatal, Error, Warning
 
-from .version import __version__
+# from .version import __version__
 
 __license__ = 'MIT'
 __author__ = 'Kevin Walchko'
+__version__ = '0.7.4'

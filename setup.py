@@ -12,9 +12,10 @@ from build_utils import BuildCommand
 from build_utils import PublishCommand
 from build_utils import BinaryDistribution
 
-VERSION = get_pkg_version('pycreate2/version.py')
+VERSION = get_pkg_version('pycreate2/__init__.py')
 PACKAGE_NAME = 'pycreate2'
 BuildCommand.pkg = PACKAGE_NAME
+BuildCommand.py2 = False
 PublishCommand.pkg = PACKAGE_NAME
 PublishCommand.version = VERSION
 
@@ -32,7 +33,7 @@ setup(
 		'Intended Audience :: Developers',
 		'License :: OSI Approved :: MIT License',
 		'Operating System :: OS Independent',
-		'Programming Language :: Python :: 2.7',
+		'Programming Language :: Python :: 3.7',
 		'Programming Language :: Python :: 3.6',
 		'Topic :: Software Development :: Libraries',
 		'Topic :: Software Development :: Libraries :: Python Modules',
