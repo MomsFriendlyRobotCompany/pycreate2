@@ -4,7 +4,6 @@
 
 [![image](https://img.shields.io/pypi/l/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
 [![image](https://img.shields.io/pypi/pyversions/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
-[![image](https://travis-ci.org/MomsFriendlyRobotCompany/pycreate2.svg?branch=master)](https://travis-ci.org/MomsFriendlyRobotCompany/pycreate2)
 [![image](https://img.shields.io/pypi/v/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
 [![image](https://img.shields.io/pypi/format/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
 
@@ -42,7 +41,8 @@ from  pycreate2 import Create2
 import time
 
 # Create a Create2.
-bot = Create2()
+port = "/dev/serial"  # where is your serial port?
+bot = Create2(port)
 
 # Start the Create 2
 bot.start()

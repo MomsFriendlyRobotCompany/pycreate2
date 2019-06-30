@@ -1,3 +1,0 @@
-pyserial
-simplejson
-build_utils
