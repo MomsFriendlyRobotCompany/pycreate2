@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # ----------------------------------------------------------------------------
 # MIT License
 # shows how to get sensor data from the create 2
 
-from __future__ import print_function
+# from __future__ import print_function
 from pycreate2 import Create2
 import time
 

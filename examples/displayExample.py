@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # ----------------------------------------------------------------------------
 # MIT License
 # display random characters to the roomba display. Note, there are some that
 # roomba can't print, those are changed to ' '
 
-from __future__ import print_function
+# from __future__ import print_function
 import pycreate2
 import time
 import string

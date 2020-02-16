@@ -3,8 +3,8 @@
 # Copyright (c) 2017 Kevin Walchko
 # I took some of these ideas from: https://bitbucket.org/lemoneer/irobot
 
-from __future__ import print_function
-from __future__ import division
+# from __future__ import print_function
+# from __future__ import division
 
 
 # could replace with:

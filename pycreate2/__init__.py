@@ -2,8 +2,11 @@
 #
 # Copyright (c) 2017 Kevin Walchko
 
-from __future__ import print_function
-from __future__ import division
+try:
+    from importlib_metadata import version # type: ignore
+except ImportError:
+    from importlib.metadata import version # type: ignore
+
 from .create2api import Create2
 # from .create2api import Fatal, Error, Warning
 
@@ -11,4 +14,5 @@ from .create2api import Create2
 
 __license__ = 'MIT'
 __author__ = 'Kevin Walchko'
-__version__ = '0.7.4'
+# __version__ = '0.7.4'
+__version__ = version("pycreate2")

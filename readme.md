@@ -7,8 +7,14 @@
 [![image](https://img.shields.io/pypi/v/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
 [![image](https://img.shields.io/pypi/format/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
 
+[![Actions Status](https://github.com/MomsFriendlyRobotCompany/pycreate2/workflows/CheckPackage/badge.svg)](https://github.com/MomsFriendlyRobotCompany/pycreate2/actions)
+![GitHub](https://img.shields.io/github/license/MomsFriendlyRobotCompany/pycreate2)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pycreate2)
+![PyPI](https://img.shields.io/pypi/v/pycreate2)
+
 A python library for controlling the [iRobot
-Create 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx).
+Create 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx). This was used
+in ECE 387 Introduction to Robotics class I taught at the US Air Force Academy.
 
 ## Install
 
@@ -16,27 +22,33 @@ Create 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx).
 
 The recommended way to install this library is:
 
-    pip install pycreate2
+```bash
+pip install pycreate2
+```
 
 ### Development
 
 If you wish to develop and submit git-pulls, you can do:
 
-    git clone https://github.com/walchko/pycreate2
-    cd pycreate2
-    pip install -e .
+```bash
+git clone https://github.com/walchko/pycreate2
+cd pycreate2
+poetry install
+poetry run pytest -v
+```
 
 ### Unit Testing
 
-    nosetests -v -w tests test.py
-    python3 -m nose -v -w tests test.py
+```bash
+poetry pytest
+```
 
 ## Use
 
 There are multiple ways to command the Create to move, here are some
 examples:
 
-``` sourceCode python
+```python
 from  pycreate2 import Create2
 import time
 
@@ -129,9 +141,10 @@ between by calling different commands.
 Sensor data is returned as a `namedtuple` from `collections`. The
 information can be accessed as either:
 
-    sensors = bot.get_sensors()
-    sensors.wall == sensors[1]  # True
-
+```python
+sensors = bot.get_sensors()
+sensors.wall == sensors[1]  # True
+```
 
 | Sensor                       | Range             | Index |
 |------------------------------|-------------------|-------|
@@ -190,6 +203,7 @@ information can be accessed as either:
 
 |            |       |                               |
 | ---------- | ----- | ----------------------------- |
+| 2020-02-16 | 0.7.5 | Switched to toml and poetry   |
 | 2019-06-30 | 0.7.4 | Midi sounds working           |
 | 2017-08-26 | 0.7.3 | code clean up and doc updates |
 | 2017-08-26 | 0.7.2 | updates and fixes             |

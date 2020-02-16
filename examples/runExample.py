@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # ----------------------------------------------------------------------------
 # MIT License
 # moves the roomba through a simple sequence
 
-from __future__ import print_function
+# from __future__ import print_function
 import pycreate2
 import time
 

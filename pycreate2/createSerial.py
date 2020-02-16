@@ -4,9 +4,7 @@
 #
 # This is basically the interface between the Create2 and pyserial
 
-from __future__ import print_function
-from __future__ import division
-import serial
+import serial # type:ignore
 import struct
 
 
