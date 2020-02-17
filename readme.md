@@ -2,11 +2,6 @@
 
 # pyCreate2
 
-[![image](https://img.shields.io/pypi/l/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
-[![image](https://img.shields.io/pypi/pyversions/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
-[![image](https://img.shields.io/pypi/v/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
-[![image](https://img.shields.io/pypi/format/pycreate2.svg)](https://pypi.python.org/pypi/pycreate2)
-
 [![Actions Status](https://github.com/MomsFriendlyRobotCompany/pycreate2/workflows/CheckPackage/badge.svg)](https://github.com/MomsFriendlyRobotCompany/pycreate2/actions)
 ![GitHub](https://img.shields.io/github/license/MomsFriendlyRobotCompany/pycreate2)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pycreate2)
