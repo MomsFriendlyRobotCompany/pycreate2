@@ -6,7 +6,7 @@
 
 [tool.poetry]
 name = "pycreate2"
-version = "0.7.5"
+version = "0.7.6"
 description = "A library to control iRobot Create 2 with python"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
@@ -29,11 +29,9 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-# # # script_name = 'myscript:main'
-# servoAX12 = "pyservos.bin.servoAX12:main"
-create_monitor = "pyservos.bin.create_monitor:main"
-create_reset = "pyservos.bin.create_reset:main"
-create_shutdown = "pyservos.bin.create_shutdown:main"
+create_monitor = "pycreate2.bin.create_monitor:main"
+create_reset = "pycreate2.bin.create_reset:main"
+create_shutdown = "pycreate2.bin.create_shutdown:main"
 
 [tool.poetry.dependencies]
 python = ">=3.6"
