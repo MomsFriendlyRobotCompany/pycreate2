@@ -7,8 +7,6 @@
 #
 # This is the main code for interacting with the Create 2
 
-# from __future__ import print_function
-# from __future__ import division
 import struct  # there are 2 places that use this ... why?
 import time
 from pycreate2.packets import SensorPacketDecoder

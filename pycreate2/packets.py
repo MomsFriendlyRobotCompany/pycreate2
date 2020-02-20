@@ -4,8 +4,6 @@
 #
 # This decodes packets and returns a namedtuple (immutable)
 
-# from __future__ import print_function
-# from __future__ import division
 from struct import Struct
 from collections import namedtuple
 from .OI import WHEEL_OVERCURRENT, BUMPS_WHEEL_DROPS, BUTTONS, CHARGE_SOURCE, LIGHT_BUMPER, STASIS

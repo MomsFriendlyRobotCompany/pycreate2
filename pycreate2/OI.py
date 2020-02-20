@@ -3,10 +3,6 @@
 # Copyright (c) 2017 Kevin Walchko
 # I took some of these ideas from: https://bitbucket.org/lemoneer/irobot
 
-# from __future__ import print_function
-# from __future__ import division
-
-
 # could replace with:
 #   class LEDS(object): DEBRIS=0x01; SPOT=0x02; DOCK=0x04; CHECK_ROBOT=0x08
 class Namespace(object):
