@@ -3,9 +3,9 @@
 # Copyright (c) 2017 Kevin Walchko
 
 try:
-    from importlib_metadata import version # type: ignore
-except ImportError:
     from importlib.metadata import version # type: ignore
+except ImportError:
+    from importlib_metadata import version # type: ignore
 
 from .create2api import Create2
 

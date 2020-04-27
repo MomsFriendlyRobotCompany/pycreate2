@@ -198,6 +198,7 @@ sensors.wall == sensors[1]  # True
 
 |            |       |                               |
 | ---------- | ----- | ----------------------------- |
+| 2020-02-16 | 0.7.7 | Fixed typo with poetry        |
 | 2020-02-16 | 0.7.6 | Fixed typo erro in `bin`      |
 | 2020-02-16 | 0.7.5 | Switched to toml and poetry   |
 | 2019-06-30 | 0.7.4 | Midi sounds working           |

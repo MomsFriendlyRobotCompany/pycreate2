@@ -3,7 +3,6 @@
 # MIT License
 # shows how to get sensor data from the create 2
 
-# from __future__ import print_function
 import pycreate2
 import time
 

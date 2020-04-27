@@ -6,7 +6,7 @@
 
 [tool.poetry]
 name = "pycreate2"
-version = "0.7.6"
+version = "0.7.7"
 description = "A library to control iRobot Create 2 with python"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
@@ -38,7 +38,7 @@ python = ">=3.6"
 pyserial = "^3.4"
 colorama = "*"
 simplejson = "*"
-importlib-metadata = "*"
+importlib-metadata = {version="*", python="<3.8"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

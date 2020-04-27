@@ -3,7 +3,6 @@
 # MIT License
 # moves the roomba through a simple sequence
 
-# from __future__ import print_function
 import pycreate2
 import time
 

@@ -3,8 +3,6 @@
 # MIT License
 # play a song
 
-# from __future__ import print_function
-# from __future__ import division
 import pycreate2
 import time
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# from __future__ import print_function
 import pycreate2
 import argparse
 import time
@@ -41,6 +40,6 @@ def main():
     print('\n\tCreate Shutdown')
     print('\tHit power button to wake-up\n')
     print('=====================================================')
-    
+
 if __name__ == "__main__":
     main()
