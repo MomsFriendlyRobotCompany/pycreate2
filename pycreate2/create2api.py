@@ -106,7 +106,7 @@ class Create2(object):
     def reset(self):
         """
         This command resets the robot, as if you had removed and reinserted the
-        battery.
+        battery. This command is buggy.
 
         ('Firmware Version:', 'bl-start\r\nSTR730\r\nbootloader id: #x47186549 82ECCFFF\r\nbootloader info rev: #xF000\r\nbootloader rev: #x0001\r\n2007-05-14-1715-L   \r')
         """
