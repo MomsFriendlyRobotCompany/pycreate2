@@ -12,21 +12,7 @@ import time
 from pycreate2.packets import SensorPacketDecoder
 from pycreate2.createSerial import SerialCommandInterface
 from pycreate2.OI import OPCODES
-# from pycreate2.OI import calc_query_data_len
 from pycreate2.OI import DRIVE
-
-
-# Not sure of the value of these Yet
-# class Fatal(Exception):
-#     pass
-#
-#
-# class Error(Exception):
-#     pass
-#
-#
-# class Warning(Exception):
-#     pass
 
 
 class Create2(object):
@@ -260,6 +246,8 @@ class Create2(object):
             self.drive_direct(*cmd)
             sensors = self.get_sensors()
             turn_angle += sensors.angle  # roomba only tracks the delta angle
+            
+        self.robot.drive_direct(0, 0)
 
     def drive_distance(self, distance, speed=100, stop=False):
         """
