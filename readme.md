@@ -11,6 +11,10 @@ A python library for controlling the [iRobot
 Create 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx). This was used
 in ECE 387 Introduction to Robotics class I taught at the US Air Force Academy.
 
+- [video](https://vimeo.com/266619301): robot could only follow the black tap road and couldn't run into anything. If anything got in the way, it had to naviage around it to its final destination
+- [video](https://vimeo.com/266619767): robot pet, follow the pink ball
+- [video](https://vimeo.com/266619636): robot pet, follow the pink ball
+
 ## Install
 
 ### pip
