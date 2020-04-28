@@ -43,7 +43,6 @@ class SerialCommandInterface(object):
         self.ser.timeout = timeout
         # print self.ser.name
         if self.ser.is_open:
-            # print "port was open"
             self.ser.close()
         self.ser.open()
         if self.ser.is_open:
