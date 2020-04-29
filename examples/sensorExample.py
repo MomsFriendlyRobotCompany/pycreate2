@@ -22,10 +22,15 @@ if __name__ == "__main__":
 
     print('Starting ...')
 
+    cnt = 0
     while True:
         # Packet 100 contains all sensor data.
-        sensor_state = bot.get_sensors()
+        sensor = bot.get_sensors()
 
-        print('==============Updated Sensors==============')
-        print(sensor_state)
-        time.sleep(2)
+        if cnt%20 == 0:
+            print("[L ] [LF] [LC] [CR] [RF] [ R]")
+
+        print(f"{sensor.light_bumper_left:4} {sensor.light_bumper_front_left:4} {sensor.light_bumper_center_left:4} {sensor.light_bumper_center_right:4} {sensor.light_bumper_front_right:4} {sensor.light_bumper_right:4}")
+        time.sleep(.01)
+
+        cnt += 1

@@ -36,12 +36,6 @@ poetry install
 poetry run pytest -v
 ```
 
-### Unit Testing
-
-```bash
-poetry pytest
-```
-
 ## Use
 
 There are multiple ways to command the Create to move, here are some
@@ -66,36 +60,11 @@ bot.safe()
 # this mode ... becareful
 bot.full()
 
-# directly set the motor speeds ... easier if using a joystick
+# directly set the motor speeds ... move forward
 bot.drive_direct(100, 100)
-
-# turn an angle [degrees] at a speed: 45 deg, 100 mm/sec
-bot.turn_angle(45, 100)
-
-# drive straight for a distance: 5 meters, reverse 100 mm/sec
-bot.drive_distance(5, -100)
-
-# Tell the Create2 to drive straight forward at a speed of 100 mm/s
-bot.drive_straight(100)
 time.sleep(2)
 
-# Tell the Create2 to drive straight backward at a speed of 100 mm/s
-bot.drive_straight(-100)
-time.sleep(2)
-
-# Turn in place
-bot.drive_turn(100, 0)
-time.sleep(2)
-
-# Turn in place
-bot.drive_turn(-100, 0)
-time.sleep(4)
-
-# Turn in place
-bot.drive_turn(100, 0)
-time.sleep(2)
-
-# use the simpler drive direct
+# turn in place
 bot.drive_direct(200,-200)  # inputs for motors are +/- 500 max
 time.sleep(2)
 
@@ -202,6 +171,7 @@ sensors.wall == sensors[1]  # True
 
 |            |       |                               |
 | ---------- | ----- | ----------------------------- |
+| 2020-02-16 | 0.8.0 | Simplified interface and bug fixes |
 | 2020-02-16 | 0.7.7 | Fixed typo with poetry        |
 | 2020-02-16 | 0.7.6 | Fixed typo erro in `bin`      |
 | 2020-02-16 | 0.7.5 | Switched to toml and poetry   |

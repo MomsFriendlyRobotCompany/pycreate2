@@ -20,30 +20,24 @@ if __name__ == "__main__":
 
     # define a movement path
     path = [
-        ['forward', 200, 1, 'for'],
-        ['back', -200, 2, 'back'],
-        ['stop', 0, 0.1, 'stop'],
-        ['turn right', 100, 2, 'rite'],
-        ['turn left', -100, 4, 'left'],
-        ['turn right', 100, 2, 'rite'],
-        ['stop', 0, 0.1, 'stop']
+        [ 200, 200, 3, 'for'],
+        [-200,-200, 3, 'back'],
+        [   0,   0, 1, 'stop'],
+        [ 100,   0, 2, 'rite'],
+        [   0, 100, 4, 'left'],
+        [ 100,   0, 2, 'rite'],
+        [   0,   0, 1, 'stop']
     ]
 
     bot.start()
     bot.safe()
 
     # path to move
-    for mov in path:
-        name, vel, dt, string = mov
-        print(name)
-        bot.digit_led_ascii(string)
-        if name in ['forward', 'back', 'stop']:
-            bot.drive_straight(vel)
-            time.sleep(dt)
-        elif name in ['turn right', 'turn left']:
-            bot.drive_turn(vel, -1)
-        else:
-            raise Exception('invalid movement command')
+    for lft, rht, dt, s in path:
+        print(s)
+        bot.digit_led_ascii(s)
+        bot.direct_drive(lft, rht)
+        time.sleep(dt)
 
     print('shutting down ... bye')
     bot.drive_stop()

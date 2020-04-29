@@ -11,8 +11,8 @@ def prettyPrint(sensors):
     print('-'*70)
     print('{:>40} | {:<5}'.format('Sensor', 'Value'))
     print('-'*70)
-    for k, v in sensors.__dict__.items():
-        print('{:>40} | {:<5}'.format(k, v))
+    for k, v in sensors._asdict().items():
+        print(f"{k}: {v}")
 
 
 if __name__ == "__main__":
