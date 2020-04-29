@@ -6,7 +6,7 @@
 
 [tool.poetry]
 name = "pycreate2"
-version = "0.7.7"
+version = "0.8.0"
 description = "A library to control iRobot Create 2 with python"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
