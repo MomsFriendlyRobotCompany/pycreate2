@@ -41,7 +41,7 @@ simplejson = "*"
 importlib-metadata = {version="*", python="<3.8"}
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "*"
 mypy = "*"
 
 # [mypy-pi_servo_serial]
