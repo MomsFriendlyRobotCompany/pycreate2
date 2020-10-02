@@ -36,7 +36,7 @@ if __name__ == "__main__":
     for lft, rht, dt, s in path:
         print(s)
         bot.digit_led_ascii(s)
-        bot.direct_drive(lft, rht)
+        bot.drive_direct(lft, rht)
         time.sleep(dt)
 
     print('shutting down ... bye')
