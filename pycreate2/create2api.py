@@ -75,10 +75,10 @@ class Create2(object):
         """
         This doesn't seem to work
         """
-        self.SCI.write(OPCODES.MODE)
+        self.SCI.write(OPCODES.SENSORS, (OPCODES.OI_MODE,))
         time.sleep(0.005)
         ans = self.SCI.read(1)
-        if len(ans) == 1:
+        if ans is not None and len(ans) == 1:
             byte = struct.unpack('B', ans)[0]
         else:
             byte = 'Error, not mode returned'
