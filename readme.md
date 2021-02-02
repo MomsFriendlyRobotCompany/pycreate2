@@ -6,6 +6,7 @@
 ![GitHub](https://img.shields.io/github/license/MomsFriendlyRobotCompany/pycreate2)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pycreate2)
 ![PyPI](https://img.shields.io/pypi/v/pycreate2)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pycreate2?color=aqua)
 
 A python library for controlling the [iRobot
 Create 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx). This was used
