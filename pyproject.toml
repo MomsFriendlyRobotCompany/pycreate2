@@ -6,7 +6,7 @@
 
 [tool.poetry]
 name = "pycreate2"
-version = "0.8.0"
+version = "0.8.1"
 description = "A library to control iRobot Create 2 with python"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
@@ -23,6 +23,7 @@ classifiers = [
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Libraries :: Application Frameworks'
@@ -35,14 +36,13 @@ create_shutdown = "pycreate2.bin.create_shutdown:main"
 
 [tool.poetry.dependencies]
 python = ">=3.6"
-pyserial = "^3.4"
+pyserial = "*"
 colorama = "*"
 simplejson = "*"
 importlib-metadata = {version="*", python="<3.8"}
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
-mypy = "*"
 
 # [mypy-pi_servo_serial]
 # ignore_missing_imports = True
