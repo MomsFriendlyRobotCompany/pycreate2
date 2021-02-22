@@ -172,6 +172,7 @@ sensors.wall == sensors[1]  # True
 
 |            |       |                               |
 | ---------- | ----- | ----------------------------- |
+| 2021-02-22 | 0.8.1 | Cleaned up code               |
 | 2020-02-16 | 0.8.0 | Simplified interface and bug fixes |
 | 2020-02-16 | 0.7.7 | Fixed typo with poetry        |
 | 2020-02-16 | 0.7.6 | Fixed typo erro in `bin`      |

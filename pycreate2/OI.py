@@ -1,6 +1,8 @@
-# The MIT License
-#
+##############################################
+# The MIT License (MIT)
 # Copyright (c) 2017 Kevin Walchko
+# see LICENSE for full details
+##############################################
 # I took some of these ideas from: https://bitbucket.org/lemoneer/irobot
 
 # could replace with:

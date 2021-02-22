@@ -1,10 +1,8 @@
-# The MIT License
-#
-# Copyright (c) 2007 Damon Kohler
-# Copyright (c) 2015 Jonathan Le Roux (Modifications for Create 2)
-# Copyright (c) 2015 Brandon Pomeroy
+##############################################
+# The MIT License (MIT)
 # Copyright (c) 2017 Kevin Walchko
-#
+# see LICENSE for full details
+##############################################
 # This is the main code for interacting with the Create 2
 
 import struct  # there are 2 places that use this ... why?
@@ -162,48 +160,6 @@ class Create2(object):
         self.drive_direct(0,0)
         time.sleep(self.sleep_timer)  # wait just a little for the robot to stop
 
-    # def drive_rotate(self, velocity, direction):
-    #     """
-    #     Turn in place clockwise: -1 CW
-    #     Turn in place counterclockwise: 1 CCW
-    #     """
-    #     if direction in [DRIVE.TURN_CW, DRIVE.TURN_CCW]:
-    #         pass
-    #     else:
-    #         raise Exception('Create2::drive_rotate() invalid direction:', direction)
-    #
-    #     v = self.limit(velocity, -500, 500)
-    #     # print('drive_rotate: {} {}'.format(v, direction))
-    #     data = struct.unpack('4B', struct.pack('>2h', v, direction))
-    #     self.SCI.write(OPCODES.DRIVE, data)
-
-    # def drive_turn(self, velocity, radius):
-    #     """
-    #     The create will turn
-    #
-    #     velocity: [-500,500] speed in mm/s
-    #     radius: [-2000,2000] radius of the turn in mm
-    #     """
-    #     v = self.limit(velocity, -500, 500)
-    #     r = self.limit(radius, -2000, 2000)
-    #     # print('drive_turn: {} {}'.format(v, r))
-    #     data = struct.unpack('4B', struct.pack('>2h', v, r))
-    #     self.SCI.write(OPCODES.DRIVE, data)
-    #
-    # def drive_straight(self, velocity):
-    #     """
-    #     Will make the Create2 drive straight at the given velocity
-    #
-    #     Arguments:
-    #         velocity: Velocity of the Create2 in mm/s. Positive velocities are forward,
-    #             negative velocities are reverse. Max speeds are still enforced by drive()
-    #
-    #     """
-    #     v = self.limit(velocity, -500, 500)
-    #     # print('drive_straight: {}'.format(v))
-    #     data = struct.unpack('4B', struct.pack('>hH', v, DRIVE.STRAIGHT))  # write do this?
-    #     self.SCI.write(OPCODES.DRIVE, data)
-
     def limit(self, val, low, hi):
         val = val if val < hi else hi
         val = val if val > low else low
@@ -226,52 +182,6 @@ class Create2(object):
         l_pwm = self.limit(l_pwm, -255, 255)
         data = struct.unpack('4B', struct.pack('>2h', r_pwm, l_pwm))  # write do this?
         self.SCI.write(OPCODES.DRIVE_PWM, data)
-
-    # def turn_angle(self, angle, speed=100):
-    #     """
-    #     Uses the encoders to turn an angle in degrees. This is a best effort,
-    #     the results will not be perfect due to wheel slip and encoder errors.
-    #
-    #     CCW is positive
-    #     CW is negative
-    #     """
-    #     turn_angle = 0.0
-    #
-    #     if angle > 0:
-    #         cmd = (speed, -speed)  # R, L
-    #     else:
-    #         cmd = (-speed, speed)
-    #         angle = -angle
-    #
-    #     while abs(turn_angle) < angle:
-    #         self.drive_direct(*cmd)
-    #         sensors = self.get_sensors()
-    #         turn_angle += sensors.angle  # roomba only tracks the delta angle
-    #
-    #     self.robot.drive_direct(0, 0)
-    #
-    # def drive_distance(self, distance, speed=100, stop=False):
-    #     """
-    #     Uses the encoders to drive straight forward or backwards. This is a best effort,
-    #     the results will not be perfect due to wheel slip and encoder errors.
-    #         distance: meters
-    #         speed: mm/sec, positive is forward, negative is backwards
-    #     """
-    #     mov = 0.0
-    #
-    #     if distance > 0:
-    #         cmd = (speed, speed)  # R, L
-    #     else:
-    #         cmd = (-speed, -speed)
-    #         distance = -distance
-    #
-    #     while abs(mov) < distance:
-    #         self.drive_direct(*cmd)
-    #         sensors = self.get_sensors()
-    #         mov += sensors.distance/1000  # roomba only tracks the delta distance
-    #
-    #     if stop:
-    #         self.drive_stop()
 
     # ------------------------ LED ----------------------------
 
@@ -336,10 +246,6 @@ class Create2(object):
         if not isinstance(notes, tuple):
             notes = tuple(notes)
 
-        # dur = 0.0
-        # for i in notes:
-        #     if i % 2 != 0:
-        #         dur += notes[i]/64
         dt = 0
         for i in range(len(notes)//2):
             dt += notes[2*i+1]

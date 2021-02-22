@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-# ----------------------------------------------------------------------------
-# MIT License
+#-*-coding:utf-8-*-
+##############################################
+# The MIT License (MIT)
+# Copyright (c) 2017 Kevin Walchko
+# see LICENSE for full details
+##############################################
 # play a song
 
 import pycreate2

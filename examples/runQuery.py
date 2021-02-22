@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-# ----------------------------------------------------------------------------
-# MIT License
-# shows how to get sensor data from the create 2
+#-*-coding:utf-8-*-
+##############################################
+# The MIT License (MIT)
+# Copyright (c) 2017 Kevin Walchko
+# see LICENSE for full details
+##############################################
 
 import pycreate2
 import time

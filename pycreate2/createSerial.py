@@ -1,7 +1,8 @@
-# The MIT License
-#
+##############################################
+# The MIT License (MIT)
 # Copyright (c) 2017 Kevin Walchko
-#
+# see LICENSE for full details
+##############################################
 # This is basically the interface between the Create2 and pyserial
 
 import serial # type:ignore
