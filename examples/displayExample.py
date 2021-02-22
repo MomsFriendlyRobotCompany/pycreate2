@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-# ----------------------------------------------------------------------------
-# MIT License
+#-*-coding:utf-8-*-
+##############################################
+# The MIT License (MIT)
+# Copyright (c) 2017 Kevin Walchko
+# see LICENSE for full details
+##############################################
 # display random characters to the roomba display. Note, there are some that
 # roomba can't print, those are changed to ' '
-
 import pycreate2
 import time
 import string

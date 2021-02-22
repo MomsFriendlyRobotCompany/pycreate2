@@ -1,7 +1,8 @@
-# The MIT License
-#
+##############################################
+# The MIT License (MIT)
 # Copyright (c) 2017 Kevin Walchko
-#
+# see LICENSE for full details
+##############################################
 # This decodes packets and returns a namedtuple (immutable)
 
 from struct import Struct

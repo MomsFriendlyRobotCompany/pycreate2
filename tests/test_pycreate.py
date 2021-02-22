@@ -1,3 +1,8 @@
+##############################################
+# The MIT License (MIT)
+# Copyright (c) 2017 Kevin Walchko
+# see LICENSE for full details
+##############################################
 from pycreate2.OI import RESPONSE_SIZES
 from pycreate2.OI import calc_query_data_len
 from pycreate2.packets import SensorPacketDecoder
