@@ -44,6 +44,13 @@ poetry build
 pip install  ..\dist\pycreate2-0.8.0.tar.gz
 ```
 
+Install Test Raspi: 
+```bash
+wget https://github.com/dan1-de/pycreate2/archive/refs/heads/newFeats.zip && unzip newFeats.zip
+pip3 install pycreate2-newFeats/dist/pycreate2-0.8.1.tar.gz
+rm newFeats.zip && rm -r pycreate2-newFeats
+```
+
 
 ## Use
 

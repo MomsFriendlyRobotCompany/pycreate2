@@ -230,7 +230,7 @@ class Create2(object):
 
     def enableVacuum(self):
         self.SCI.write(OPCODES.MOTORS, (2,)) #00000010
-    def disableVaacum(self):
+    def disableVacuum(self):
         self.SCI.write(OPCODES.MOTORS, (0,)) #0000000
 
 
