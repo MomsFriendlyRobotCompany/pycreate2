@@ -20,10 +20,10 @@ classifiers = [
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent',
-    'Programming Language :: Python :: 3.6',
-    'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Libraries :: Application Frameworks'
@@ -35,11 +35,11 @@ create_reset = "pycreate2.bin.create_reset:main"
 create_shutdown = "pycreate2.bin.create_shutdown:main"
 
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">=3.8"
 pyserial = "*"
 colorama = "*"
 simplejson = "*"
-importlib-metadata = {version="*", python="<3.8"}
+#importlib-metadata = {version="*", python="<3.8"}
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
@@ -48,5 +48,5 @@ pytest = "*"
 # ignore_missing_imports = True
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"
