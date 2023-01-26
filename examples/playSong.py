@@ -36,6 +36,6 @@ if __name__ == "__main__":
     how_long = bot.playSong(song_num)
 
     # The song will run in the back ground, don't interrupt it
-    # how_long is the time in secods for it to finish
+    # how_long is the time in seconds for it to finish
     print('Sleep for:', how_long)
     time.sleep(how_long)
